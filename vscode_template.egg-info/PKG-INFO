@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: discovery_markets
+Version: 0.1
+
+README.md
+setup.py
+discovery_markets.egg-info/PKG-INFO
+discovery_markets.egg-info/SOURCES.txt
+discovery_markets.egg-info/dependency_links.txt
+discovery_markets.egg-info/entry_points.txt
+discovery_markets.egg-info/top_level.txt

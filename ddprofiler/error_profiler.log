@@ -1,0 +1,842 @@
+#########
+ddprofiler.sources.implementations.CSVSource@1bd10525 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@20083a2
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@5d542e8a $FAILED$ cause-> [Ljava.lang.StackTraceElement;@eb20875
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@75f43f61 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@519d89eb
+ddprofiler.analysis.NumericalAnalyzer.<init>(NumericalAnalyzer.java:26)
+ddprofiler.analysis.NumericalAnalyzer.makeAnalyzer(NumericalAnalyzer.java:38)
+ddprofiler.analysis.AnalyzerFactory.makeNumericalAnalyzer(AnalyzerFactory.java:9)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:188)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7a2533e1 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5b46f637
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7c9a7af3 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3c452b72
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@49f974ae $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5032db79
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@65df439e $FAILED$ cause-> [Ljava.lang.StackTraceElement;@77ce74f7
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@327788d8 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@34f519b6
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7bb2d944 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@17296f4b
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@13118b9d $FAILED$ cause-> [Ljava.lang.StackTraceElement;@69a2c36
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@51542f60 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@2db045eb
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@38f76158 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@46243e41
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@35db2f02 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@662ffd7d
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7d2cfcd8 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@79d7e4fc
+ddprofiler.analysis.NumericalAnalyzer.<init>(NumericalAnalyzer.java:26)
+ddprofiler.analysis.NumericalAnalyzer.makeAnalyzer(NumericalAnalyzer.java:38)
+ddprofiler.analysis.AnalyzerFactory.makeNumericalAnalyzer(AnalyzerFactory.java:9)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:188)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@62e01b69 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@75e47546
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@467cde84 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3af5c53a
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@b2b8e74 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@198dbb78
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@2b1abfe1 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@7d415b0
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@3c63d83b $FAILED$ cause-> [Ljava.lang.StackTraceElement;@47d21370
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@23291837 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@7b5bb0e
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@2f02f1b9 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@6306220d
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@741e434e $FAILED$ cause-> [Ljava.lang.StackTraceElement;@605684e2
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@76b75486 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5169b675
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@27ee0f71 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@7070d16f
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@5399b406 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@2df9f8f5
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@5af203cf $FAILED$ cause-> [Ljava.lang.StackTraceElement;@f5cafb4
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@1345d46c $FAILED$ cause-> [Ljava.lang.StackTraceElement;@55565771
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@237b95ac $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3c3608fc
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@b922bb7 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@4691dea4
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7d9a2c67 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5ccdbd5e
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@6ededac5 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@26074f2e
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@43883729 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@66b4f484
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@88dfd10 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@399b9612
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@172e2571 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@72e00a80
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@cf7bcf2 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@6fd504d3
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@2d8d3c01 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@705640a7
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@571355c2 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@16c28b70
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@45ac75fd $FAILED$ cause-> [Ljava.lang.StackTraceElement;@97f4b36
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@2c468d8e $FAILED$ cause-> [Ljava.lang.StackTraceElement;@426c5c1
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@11f6a644 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@78a1ea82
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@32ff5d12 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@629d97ca
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@52696a33 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@15e00948
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@776c1046 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@75d8e767
+ddprofiler.analysis.NumericalAnalyzer.<init>(NumericalAnalyzer.java:26)
+ddprofiler.analysis.NumericalAnalyzer.makeAnalyzer(NumericalAnalyzer.java:38)
+ddprofiler.analysis.AnalyzerFactory.makeNumericalAnalyzer(AnalyzerFactory.java:9)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:188)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@30b30d7a $FAILED$ cause-> [Ljava.lang.StackTraceElement;@15f237c2
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@2533567b $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5b25fd9
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@1ec98b99 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@29372420
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@57f0dac2 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@1255ef93
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@27a4b87b $FAILED$ cause-> [Ljava.lang.StackTraceElement;@7ef79485
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@1a63067 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@11a00257
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@94b0ae3 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@d83602f
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@1fedc51f $FAILED$ cause-> [Ljava.lang.StackTraceElement;@22f99806
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@3cea312b $FAILED$ cause-> [Ljava.lang.StackTraceElement;@9cfbfdc
+ddprofiler.analysis.TextualAnalyzer.<init>(TextualAnalyzer.java:31)
+ddprofiler.analysis.TextualAnalyzer.makeAnalyzer(TextualAnalyzer.java:53)
+ddprofiler.analysis.AnalyzerFactory.makeTextualAnalyzer(AnalyzerFactory.java:14)
+ddprofiler.core.Worker.readFirstRecords(Worker.java:191)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7d868328 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@60a6c08e
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7087b3cf $FAILED$ cause-> [Ljava.lang.StackTraceElement;@49eaa067
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@36237931 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@17468105
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@77595a54 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@eb84bb2
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@2932055c $FAILED$ cause-> [Ljava.lang.StackTraceElement;@69cb0292
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@45814aa6 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@6b0c8405
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@9e0704d $FAILED$ cause-> [Ljava.lang.StackTraceElement;@1f144de2
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@73570dd9 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@7b915e0b
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7b35cba8 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@558c1610
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@3bfdb6f9 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@2cad3db5
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@4231fff6 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@1986bf26
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@34125852 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@62cb7f9a
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@52fa3ee0 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5ff91c22
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@1864edbb $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5dffa7d9
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@ca40807 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@4292bfe8
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@5d478131 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3a17425b
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@413e1754 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@13ad9c6
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@148df8f0 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@34fc6bb8
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@49aa8016 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@2dbcbf20
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@5791c7e9 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@6afb675e
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@6cf9762b $FAILED$ cause-> [Ljava.lang.StackTraceElement;@1550903f
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@2a338b2c $FAILED$ cause-> [Ljava.lang.StackTraceElement;@751b8247
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@65581f33 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@12ad73a3
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@211477c9 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@6c7d4cda
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@67cbc690 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3ba7621b
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@752abf59 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@7f758d0c
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@3baebf84 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@4c702750
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@188cc716 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@10d1e8b8
+ddprofiler.sources.implementations.CSVSource.getAttributes(CSVSource.java:144)
+ddprofiler.preanalysis.PreAnalyzer.assignSourceTask(PreAnalyzer.java:364)
+ddprofiler.core.Worker.run(Worker.java:101)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@174fbc29 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@46e19ab3
+ddprofiler.sources.implementations.CSVSource.getAttributes(CSVSource.java:144)
+ddprofiler.preanalysis.PreAnalyzer.assignSourceTask(PreAnalyzer.java:364)
+ddprofiler.core.Worker.run(Worker.java:101)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@6df200ad $FAILED$ cause-> [Ljava.lang.StackTraceElement;@6d90cbda
+ddprofiler.sources.implementations.CSVSource.getAttributes(CSVSource.java:144)
+ddprofiler.preanalysis.PreAnalyzer.assignSourceTask(PreAnalyzer.java:364)
+ddprofiler.core.Worker.run(Worker.java:101)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@9ad27a $FAILED$ cause-> [Ljava.lang.StackTraceElement;@57cf35cc
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@342cfbac $FAILED$ cause-> [Ljava.lang.StackTraceElement;@4c1c4a01
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@ac40c32 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@723d087e
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@1a6911e8 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@be527d4
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:118)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@6d9f20aa $FAILED$ cause-> [Ljava.lang.StackTraceElement;@f3195b3
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:118)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@3e06b026 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3bb7db49
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@538f72a0 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@15008578
+ddprofiler.core.Worker.readFirstRecords(Worker.java:180)
+ddprofiler.core.Worker.run(Worker.java:114)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@75fda5f0 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@1c444f0f
+ddprofiler.sources.implementations.CSVSource.getAttributes(CSVSource.java:144)
+ddprofiler.preanalysis.PreAnalyzer.assignSourceTask(PreAnalyzer.java:364)
+ddprofiler.core.Worker.run(Worker.java:101)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@360cc652 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@4fd99e3
+ddprofiler.sources.implementations.CSVSource.getAttributes(CSVSource.java:144)
+ddprofiler.preanalysis.PreAnalyzer.assignSourceTask(PreAnalyzer.java:364)
+ddprofiler.core.Worker.run(Worker.java:101)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@437e8ed8 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@45da937a
+ddprofiler.sources.implementations.CSVSource.readRows(CSVSource.java:169)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:84)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@3fbf82d6 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3bb340e9
+ddprofiler.sources.implementations.CSVSource.readRows(CSVSource.java:169)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:84)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@3bfd87d9 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@70924d8f
+ddprofiler.sources.implementations.CSVSource.readRows(CSVSource.java:171)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:84)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@7d076ce4 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@3accec21
+ddprofiler.sources.implementations.CSVSource.readRows(CSVSource.java:171)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:84)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@4d9d70fe $FAILED$ cause-> [Ljava.lang.StackTraceElement;@20dd8b69
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@52b962eb $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5a9d6b50
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+

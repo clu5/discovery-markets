@@ -1,0 +1,7 @@
+README.md
+setup.py
+vscode_template.egg-info/PKG-INFO
+vscode_template.egg-info/SOURCES.txt
+vscode_template.egg-info/dependency_links.txt
+vscode_template.egg-info/entry_points.txt
+vscode_template.egg-info/top_level.txt

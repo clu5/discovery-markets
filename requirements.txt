@@ -1,0 +1,17 @@
+scikit-learn
+nearpy
+datasketch
+nltk
+jupyter
+numpy
+scipy
+networkx
+pandas
+matplotlib
+black
+tqdm
+elasticsearch
+ipython
+bitarray
+fire
+neo4j
