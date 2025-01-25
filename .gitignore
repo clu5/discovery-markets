@@ -48,3 +48,6 @@ coverage.xml
 *.tar
 *.tar.gz
 *.zip
+
+.DS_Store
+*.log

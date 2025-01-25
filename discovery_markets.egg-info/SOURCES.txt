@@ -1,3 +1,4 @@
+README
 README.md
 setup.py
 discovery_markets.egg-info/PKG-INFO

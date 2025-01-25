@@ -15,7 +15,8 @@ jgraphfile = "jgraphfile.pickle"
 
 # DB connection
 db_host = 'localhost'
-db_port = '9200'
+# db_port = '9200'
+db_port = 9200
 
 ###########
 ## minhash

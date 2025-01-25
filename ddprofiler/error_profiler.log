@@ -840,3 +840,51 @@ ddprofiler.core.Worker.run(Worker.java:105)
 java.base/java.lang.Thread.run(Thread.java:840)
 
 
+#########
+ddprofiler.sources.implementations.CSVSource@10febf5f $FAILED$ cause-> [Ljava.lang.StackTraceElement;@643a105c
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@296faa5d $FAILED$ cause-> [Ljava.lang.StackTraceElement;@6834319f
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@61061106 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@20e84198
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@416e0cf8 $FAILED$ cause-> [Ljava.lang.StackTraceElement;@56a105b6
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@bc8885a $FAILED$ cause-> [Ljava.lang.StackTraceElement;@127a0464
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+
+#########
+ddprofiler.sources.implementations.CSVSource@532acf2a $FAILED$ cause-> [Ljava.lang.StackTraceElement;@5452cb87
+ddprofiler.preanalysis.PreAnalyzer.calculateDataTypes(PreAnalyzer.java:159)
+ddprofiler.preanalysis.PreAnalyzer.readRows(PreAnalyzer.java:93)
+ddprofiler.core.Worker.run(Worker.java:105)
+java.base/java.lang.Thread.run(Thread.java:840)
+
+

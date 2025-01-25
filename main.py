@@ -69,7 +69,7 @@ def build_aurum_and_extract_joins(csv_dir: str, output_dir: str, schema_path: st
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--csv_dir", default='data/nyc_csvs', help="Path to directory containing CSV files")
+    parser.add_argument("--csv_dir", default='data/test_nyc_csvs', help="Path to directory containing CSV files")
     parser.add_argument("--output", default='saved_aurum_graphs', help="Path to save join paths CSV") 
     parser.add_argument("--schema", default='configs/profile_schema.yml', help="Path to the profile schema file")
     args = parser.parse_args()

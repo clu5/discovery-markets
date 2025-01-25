@@ -1,3 +1,4 @@
+import subprocess
 import re
 from datetime import datetime
 from elasticsearch import Elasticsearch
@@ -28,8 +29,19 @@ class StoreHandler:
             Uses the configuration file to create a connection to the store
             :return:
             """
+        self.start_elasticsearch()
         global client
-        client = Elasticsearch([{'host': c.db_host, 'port': c.db_port}])
+        client = Elasticsearch([{'host': c.db_host, 'port': c.db_port, 'scheme': 'http'}])
+
+    def start_elasticsearch(self):
+        """
+        Start the Elasticsearch service if it is not already running.
+        """
+        try:
+            subprocess.run(["service", "elasticsearch", "start"], check=True)
+            print("Elasticsearch service started successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to start Elasticsearch service: {e}")
 
     def close(self):
         print("TODO")

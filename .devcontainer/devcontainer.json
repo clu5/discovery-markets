@@ -1,5 +1,8 @@
 {
     "name": "discovery_markets",
+    "hostRequirements": {
+        "memory": "8gb"
+    },
     "build": {
         "dockerfile": "../Dockerfile",
         "context": ".."
@@ -19,5 +22,6 @@
         }
     },
     "postCreateCommand": "pip install -e .",
-    "remoteUser": "root"
+    "remoteUser": "root",
+    "forwardPorts": [9200]
 }
