@@ -209,6 +209,7 @@ class AurumCLI(AurumWrapper):
         if not ds_fp.exists():
             raise DataSourceNotConfigured(f"Data Source {data_source_name} not configured!")
         
+        # run self.ddprofiler_run_sh with the data source path passed in as the argument
         profile_cmd = ['bash', self.ddprofiler_run_sh, '--sources', ds_fp]
         
         if self.schema_path:

@@ -12,6 +12,7 @@ from aurum.api.apiutils import Relation
 from aurum.api.apiutils import compute_field_id
 from aurum.api.annotation import MRS
 
+from typing import List, Tuple
 
 def build_hit(sn, fn):
     nid = compute_field_id(sn, fn)
@@ -96,7 +97,7 @@ class FieldNetwork:
         nx.draw(self.__G)
         plt.show()
 
-    def init_meta_schema(self, fields: (int, str, str, str, int, int, str)):
+    def init_meta_schema(self, fields: List[Tuple[int, str, str, str, int, int, str]]):
         """
         Creates a dictionary of id -> (dbname, sourcename, fieldname)
         and one of:
@@ -107,13 +108,19 @@ class FieldNetwork:
         :return:
         """
         print("Building schema relation...")
-        for (nid, db_name, sn_name, fn_name, total_values, unique_values, data_type) in fields:
-            self.__id_names[nid] = (db_name, sn_name, fn_name, data_type)
-            self.__source_ids[sn_name].append(nid)
-            cardinality_ratio = None
-            if float(total_values) > 0:
-                cardinality_ratio = float(unique_values) / float(total_values)
-            self.add_field(nid, cardinality_ratio)
+        print(fields)
+        print("ABOUT TO ENTER FOR LOOP")
+        # for _ in fields:
+        #     print("SOMETHING EXISTS HERE")
+        # for (nid, db_name, sn_name, fn_name, total_values, unique_values, data_type) in fields:
+        #     print("ENTERED HERE")
+        #     print(nid, db_name, sn_name, fn_name, total_values, unique_values, data_type)
+        #     self.__id_names[nid] = (db_name, sn_name, fn_name, data_type)
+        #     self.__source_ids[sn_name].append(nid)
+        #     cardinality_ratio = None
+        #     if float(total_values) > 0:
+        #         cardinality_ratio = float(unique_values) / float(total_values)
+        #     self.add_field(nid, cardinality_ratio)
         print("Building schema relation...OK")
 
     def add_field(self, nid, cardinality=None):

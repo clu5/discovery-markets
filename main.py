@@ -9,35 +9,43 @@ import pandas as pd
 def build_aurum_and_extract_joins(csv_dir: str, output_dir: str, schema_path: str):
     """
     Build Aurum model from CSV files and extract join paths for Metam
-    
+
     Args:
         csv_dir: Path to directory containing CSV files
         output_dir: Dir to save join paths CSV
         schema_path: Path to the ddprofiler schema file
     """
     # Convert to absolute path
-    csv_dir = os.path.abspath(csv_dir)
-    output_dir = os.path.abspath(output_dir)
-    schema_path = os.path.abspath(schema_path)
+    csv_dir = os.path.abspath(csv_dir)          # contains CSV data files
+    output_dir = os.path.abspath(output_dir)    # contains the path to put the output
+                                                # we don't see output yet because it fails in building network model
+    schema_path = os.path.abspath(schema_path)  # defines structure of the output file
     
     # Initialize Aurum CLI
+    # TODO: view aurum_cli.py
     aurum = AurumCLI(schema_path=schema_path)
     
     # Add CSV source and profile
     print("Adding and profiling data source...")
     aurum.add_csv_data_source("csv_source", csv_dir)
-    aurum.profile("csv_source")
+    aurum.profile("csv_source")     # runs ddprofiler/run.sh
+                                    # Extracts metadata and statistics from datasets (e.g., column types, distributions, and relationships).
+                                    # Works as a preprocessing step to help generate meaningful metadata.
     
-    # Build network model
+    # Build network model: graph of dataset joins
     print("Building network model...")
     network = FieldNetwork()
     store = StoreHandler()
     
     # Get fields from store
-    fields_gen = store.get_all_fields()
-    network.init_meta_schema(fields_gen)
+    fields_gen = store.get_all_fields()     # tried priting out: results in generator object
+
+    print("Get all fields from store...")
+    print("Initializing meta schema...")
+
+    network.init_meta_schema(fields_gen)    # failing here: (also a line to build in aurum-cli)
     
-    # Build PKFK relationships
+    # Build PKFK relationships (might need to change)
     print("Building PKFK relationships...")
     build_pkfk_relation(network)
     
