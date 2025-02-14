@@ -1,11 +1,8 @@
-# Project Title
+# Online Data Markets 
 
 A brief description of what this project does and who it's for.
 
 ## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the required packages.
-
 ```bash
 pip install -r requirements.txt
 ```
