@@ -21,12 +21,13 @@ def build_aurum_and_extract_joins(csv_dir: str, output_dir: str, schema_path: st
     schema_path = os.path.abspath(schema_path)
     
     # Initialize Aurum CLI
-    aurum = AurumCLI(schema_path=schema_path)
+    aurum = AurumCLI()
     
     # Add CSV source and profile
     print("Adding and profiling data source...")
     aurum.add_csv_data_source("csv_source", csv_dir)
-    aurum.profile("csv_source")
+    aurum.profile("csv_source", schema_path=str(Path(schema_path).absolute()))
+    print('finished profiling')
     
     # Build network model
     print("Building network model...")

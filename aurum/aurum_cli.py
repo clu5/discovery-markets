@@ -1,5 +1,4 @@
 #! /usr/bin/env python3
-
 import subprocess
 from dataclasses import dataclass
 from os import environ
@@ -174,9 +173,8 @@ class AurumWrapper(object):
 
 class AurumCLI(AurumWrapper):
 
-    def __init__(self, schema_path=None):
+    def __init__(self):
         super().__init__()
-        self.schema_path = schema_path
 
     @property
     def sources(self):
@@ -204,15 +202,15 @@ class AurumCLI(AurumWrapper):
 
         super()._store_ds(ds)
 
-    def profile(self, data_source_name):
+    def profile(self, data_source_name, schema_path=None):
         ds_fp = super()._make_ds_path(data_source_name)
         if not ds_fp.exists():
             raise DataSourceNotConfigured(f"Data Source {data_source_name} not configured!")
         
         profile_cmd = ['bash', self.ddprofiler_run_sh, '--sources', ds_fp]
         
-        if self.schema_path:
-            profile_cmd.extend(['--profile.schema', self.schema_path])
+        if schema_path is not None:
+            profile_cmd.extend(['--profile.schema', str(Path(schema_path).absolute())])
         
         run_cmd(profile_cmd, cwd=self.ddprofiler_home)
 

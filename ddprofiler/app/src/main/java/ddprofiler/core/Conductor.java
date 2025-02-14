@@ -120,6 +120,10 @@ public class Conductor {
         return this.totalProcessedTasks.get() < this.totalTasksSubmitted;
     }
 
+    public int getTotalProcessedTasks() {
+        return this.totalProcessedTasks.get();
+    }
+
     public List<Profile> consumeResults() {
         List<Profile> availableResults = new ArrayList<>();
         Profile wtr = null;

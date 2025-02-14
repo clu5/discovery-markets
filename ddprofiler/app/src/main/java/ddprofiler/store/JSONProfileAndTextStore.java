@@ -76,7 +76,7 @@ public class JSONProfileAndTextStore implements Store {
 
         String fileName = wtr.dbName() + "." + wtr.sourceName() + "." + wtr.columnName() + "." + wtr.id() + ".json";
 
-        String filePath = this.profileOutputPath + "/" + fileName;
+        String filePath = this.profileOutputPath + fileName;
         System.out.println("filepath: " + filePath);
         try (PrintWriter out = new PrintWriter(new FileWriter(filePath))) {
             assert json != null;

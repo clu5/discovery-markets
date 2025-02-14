@@ -1,8 +1,8 @@
-from modelstore.elasticstore import StoreHandler
+from elasticstore import StoreHandler
 from knowledgerepr import fieldnetwork
 from knowledgerepr import networkbuilder
 from knowledgerepr.fieldnetwork import FieldNetwork
-from inputoutput import inputoutput as io
+import inputoutput as io
 
 import sys
 import time

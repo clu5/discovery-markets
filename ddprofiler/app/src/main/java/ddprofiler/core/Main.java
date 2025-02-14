@@ -1,5 +1,7 @@
 package ddprofiler.core;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,6 +62,9 @@ public class Main {
         // Parsing profile schema file
         try {
             String profileSchemaFile = pc.getString(ProfilerConfig.PROFILE_SCHEMA_FILE);
+            // Path profileSchemaPath = Paths.get(profileSchemaFile).toAbsolutePath();
+            // LOG.info("Using {} as profile schema file", profileSchemaPath.toString());
+            // ProfileSchemaParser.processProfileSchema(profileSchemaPath.toString());
             LOG.info("Using {} as profile schema file", profileSchemaFile);
             ProfileSchemaParser.processProfileSchema(profileSchemaFile);
         } catch (FileNotFoundException fnfe) {
@@ -101,6 +106,7 @@ public class Main {
 
         while (c.isTherePendingWork()) {
             try {
+                LOG.info("Waiting for tasks to finish... {}", c.getTotalProcessedTasks());
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -108,7 +114,9 @@ public class Main {
         }
 
         c.stop();
+        LOG.info("Conductor stopped.", sourceConfigFile);
         s.tearDownStore();
+        LOG.info("Store closed.", sourceConfigFile);
 
         long end = System.nanoTime();
         LOG.info("Finished processing in {}", (end - start));
