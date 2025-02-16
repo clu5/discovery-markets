@@ -12,7 +12,7 @@
             "settings": {
                 "python.pythonPath": "/usr/local/bin/python",
                 "editor.formatOnSave": true,
-                "editor.defaultFormatter": "ms-python.black-formatter"
+                "editor.defaultFormatter": "GitHub.copilot"
             },
             "extensions": [
                 "ms-python.python",
