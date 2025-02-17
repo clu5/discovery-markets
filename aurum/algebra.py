@@ -15,6 +15,8 @@ from aurum.api.annotation import MDHit
 from aurum.api.annotation import MDComment
 from aurum.api.annotation import MRS
 
+from typing import List, Tuple
+
 
 class Algebra:
 
@@ -339,7 +341,7 @@ class Algebra:
         hit = Hit(nid, db, source, field, score)
         return hit
 
-    def _node_to_hit(self, node: (str, str, str)) -> Hit:
+    def _node_to_hit(self, node: Tuple[str, str, str]) -> Hit:
         """
         Given a field and source name, it returns a Hit with its representation
         :param node: a tuple with the name of the field,
@@ -559,7 +561,7 @@ class Helper:
         self._network = network
         self._store_client = store_client
 
-    def reverse_lookup(self, nid) -> [str]:
+    def reverse_lookup(self, nid) -> List[str]:
         info = self._network.get_info_for([nid])
         return info
 
