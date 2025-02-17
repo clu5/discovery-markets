@@ -115,14 +115,14 @@ def compare_pair_text_columns(col1, col2):
 
 
 def compare_num_columns_dist(columnA, columnB, method):
-    if method is "ks":
+    if method == "ks":
         return compare_num_columns_dist_ks(columnA, columnB)
-    if method is "odsvm":
+    if method == "odsvm":
         return compare_num_columns_dist_odsvm(columnA, columnB)
 
 
 def compare_num_columns_dist_ks(columnA, columnB):
-    ''' 
+    '''
         Kolmogorov-Smirnov test
     '''
     return ks_2samp(columnA, columnB)
@@ -187,7 +187,7 @@ def get_textual_dist(data, method):
     the provided method
     '''
     sig = None
-    if method is "vector":
+    if method == "vector":
         try:
             sig = ' '.join(data)
         except TypeError:
@@ -294,7 +294,7 @@ def get_sim_vector_numerical(column, ncol_dist, method):
 
 def get_sim_matrix_numerical(ncol_dist, method):
     '''
-         Pairwise comparison of all numerical column dist. 
+         Pairwise comparison of all numerical column dist.
          keep them in matrix
     '''
     mn = dict()
@@ -308,7 +308,7 @@ def get_sim_vector_text(column, tcol_dist):
     value_to_compare = tcol_dist[column]
     vt = dict()
     for key, value in tcol_dist.items():
-        if value_to_compare is not "" and value is not "":
+        if value_to_compare != "" and value != "":
             try:
                 sim = compare_text_columns_dist(
                     [value_to_compare, value]
@@ -322,8 +322,8 @@ def get_sim_vector_text(column, tcol_dist):
 
 
 def get_sim_matrix_text(tcol_dist):
-    ''' 
-    Pairwise comparison of all textual column dist. 
+    '''
+    Pairwise comparison of all textual column dist.
     keep them in matrix
     '''
     mt = dict()
