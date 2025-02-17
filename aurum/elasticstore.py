@@ -31,7 +31,7 @@ class StoreHandler:
             """
         self.start_elasticsearch()
         global client
-        client = Elasticsearch([{'host': c.db_host, 'port': c.db_port, 'scheme': 'http'}])
+        client = Elasticsearch("http://localhost:9200/")
 
     def start_elasticsearch(self):
         """
@@ -77,6 +77,7 @@ class StoreHandler:
         Reads all fields, described as (id, source_name, field_name) from the store.
         :return: a list of all fields with the form (id, source_name, field_name)
         """
+        print("ENTERED get_all_fields FUNCTION")
         body = {"query": {"match_all": {}}}
         res = client.search(index='profile', body=body, scroll="10m",
                             filter_path=['_scroll_id',
@@ -91,9 +92,12 @@ class StoreHandler:
                             )
         scroll_id = res['_scroll_id']
         remaining = res['hits']['total']
+        print("NUMBER OF HITS THAT WE SHOULD BE FINDING: ", remaining)
         while remaining > 0:
             hits = res['hits']['hits']
             for h in hits:
+                # tuple used in init_meta_scheme
+                # (nid, db_name, sn_name, fn_name, total_values, unique_values, data_type)
                 id_source_and_file_name = (h['_id'], h['_source']['dbName'], h['_source']['sourceName'],
                                            h['_source']['columnName'], h['_source']['totalValues'],
                                            h['_source']['uniqueValues'], h['_source']['dataType'])

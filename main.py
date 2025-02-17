@@ -40,8 +40,12 @@ def build_aurum_and_extract_joins(csv_dir: str, output_dir: str, schema_path: st
     # Get fields from store
     fields_gen = store.get_all_fields()     # tried priting out: results in generator object
 
+    print("Fields generated:", fields_gen)
     print("Get all fields from store...")
     print("Initializing meta schema...")
+
+    fields = list(fields_gen)  # Force generator execution
+    print("Fields extracted:", fields)  # Now this will actually print data
 
     network.init_meta_schema(fields_gen)    # failing here: (also a line to build in aurum-cli)
     

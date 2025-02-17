@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.2.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - my_network
+
+  app:
+    build: .
+    container_name: my_app
+    depends_on:
+      - elasticsearch
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
