@@ -106,7 +106,7 @@ public class Main {
 
         while (c.isTherePendingWork()) {
             try {
-                LOG.info("Waiting for tasks to finish... {}", c.getTotalProcessedTasks());
+                LOG.info("Waiting for tasks to finish... Processed tasks: {}", c.getTotalProcessedTasks());
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -114,9 +114,10 @@ public class Main {
         }
 
         c.stop();
-        LOG.info("Conductor stopped.", sourceConfigFile);
+        LOG.info("Conductor stopped.");
         s.tearDownStore();
-        LOG.info("Store closed.", sourceConfigFile);
+        LOG.info("Store closed.");
+        
 
         long end = System.nanoTime();
         LOG.info("Finished processing in {}", (end - start));
@@ -157,6 +158,7 @@ public class Main {
         Main m = new Main();
         try {
             m.startProfiler(pc, parser);
+            // System.out.println("Exiting application");
         } catch (IOException e) {
             e.printStackTrace();
         }

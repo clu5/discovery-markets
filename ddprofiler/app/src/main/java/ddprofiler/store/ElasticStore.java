@@ -28,6 +28,8 @@ public class ElasticStore implements Store {
     private final int storePort;
 
     private ElasticsearchClient client;
+    private RestClient restClient; // Add this field
+    private ElasticsearchTransport transport; // Add this field
 
     public ElasticStore(ProfilerConfig pc) {
         String storeServer = pc.getString(ProfilerConfig.STORE_SERVER);
@@ -210,18 +212,17 @@ public class ElasticStore implements Store {
     public void initStore() {
         // Create elastic client
         // Create the low-level client
-        RestClient restClient = RestClient.builder(new HttpHost(this.storeServer, this.storePort)).build();
+        this.restClient = RestClient.builder(new HttpHost(this.storeServer, this.storePort)).build();
         // Create the transport with a Jackson mapper
-        ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+        this.transport = new RestClientTransport(this.restClient, new JacksonJsonpMapper());
         // And create the API client
-        this.client = new ElasticsearchClient(transport);
+        this.client = new ElasticsearchClient(this.transport);
 
         // Create text index and mapping
         this.createTextIndexAndMapping();
 
         // Create profile index and mapping
         this.createProfileIndexAndMapping();
-
     }
 
     @Override
@@ -271,6 +272,25 @@ public class ElasticStore implements Store {
 
     @Override
     public void tearDownStore() {
-        client.shutdown();
+        LOG.info("Closing Elasticsearch resources");
+        try {
+            if (client != null) {
+                client.shutdown();
+                LOG.info("Elasticsearch client shutdown completed");
+            }
+            
+            if (transport != null) {
+                transport.close();
+                LOG.info("Elasticsearch transport closed");
+            }
+            
+            if (restClient != null) {
+                restClient.close();
+                LOG.info("REST client closed");
+            }
+            LOG.info("All Elasticsearch resources released");
+        } catch (Exception e) {
+            LOG.error("Failed to close Elasticsearch clients", e);
+        }
     }
 }

@@ -213,6 +213,7 @@ class AurumCLI(AurumWrapper):
             profile_cmd.extend(['--profile.schema', str(Path(schema_path).absolute())])
         
         run_cmd(profile_cmd, cwd=self.ddprofiler_home)
+        print('finished profiling command'.center(70, '-'))
 
     def build_model(self, name):
         model_dir_path = self._make_model_path(name)

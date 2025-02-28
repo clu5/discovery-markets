@@ -99,12 +99,14 @@ public class Conductor {
     }
 
     public void stop() {
+        LOG.info("Stopping Conductor...");
         this.runnable.stop();
         try {
             this.consumer.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        LOG.info("Conductor stopped.");
     }
 
     public boolean submitTask(Source task) {
@@ -117,7 +119,10 @@ public class Conductor {
     }
 
     public boolean isTherePendingWork() {
-        return this.totalProcessedTasks.get() < this.totalTasksSubmitted;
+        boolean pendingWork = this.totalProcessedTasks.get() < this.totalTasksSubmitted;
+        LOG.info("Checking pending work: {} processed, {} submitted, pending: {}", 
+                 this.totalProcessedTasks.get(), this.totalTasksSubmitted, pendingWork);
+        return pendingWork;
     }
 
     public int getTotalProcessedTasks() {
@@ -160,7 +165,7 @@ public class Conductor {
 
         @Override
         public void run() {
-
+            LOG.info("Consumer started...");
             // Start workers
             for (Thread worker : workerPool) {
                 worker.start();

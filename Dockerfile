@@ -70,5 +70,6 @@ EXPOSE 9300
 # CMD ["ipython"]
 
 # Start Elasticsearch manually as a background service
-CMD service elasticsearch start && tail -f /dev/null
-
+# CMD service elasticsearch start && tail -f /dev/null
+# Replace your current CMD with this
+CMD ["/bin/bash", "-c", "service elasticsearch start && bash"]
