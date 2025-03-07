@@ -1,14 +1,17 @@
-from elasticstore import StoreHandler
-from knowledgerepr import fieldnetwork
-from knowledgerepr import networkbuilder
-from knowledgerepr.fieldnetwork import FieldNetwork
-import inputoutput as io
+from aurum.elasticstore import StoreHandler
+from aurum.knowledgerepr import fieldnetwork
+from aurum.knowledgerepr import networkbuilder
+from aurum.knowledgerepr.fieldnetwork import FieldNetwork
+import aurum.inputoutput as io
 
 import sys
 import time
 
 
 def main(output_path=None):
+    if output_path is None:
+        raise ValueError("Output path must be provided")
+
     start_all = time.time()
     network = FieldNetwork()
     store = StoreHandler()
@@ -86,10 +89,7 @@ def main(output_path=None):
     print("Total time: {0}".format(str(end_all - start_all)))
     print("!!7 " + str(end_all - start_all))
 
-    path = "test/datagov/"
-    if output_path is not None:
-        path = output_path
-    fieldnetwork.serialize_network(network, path)
+    fieldnetwork.serialize_network(network, output_path)
 
     # Serialize indexes
     path_schsim = path + "/schema_sim_index.pkl"

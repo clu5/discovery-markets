@@ -1,4 +1,6 @@
 import os
+# import subprocess
+from aurum import networkbuildercoordinator
 from pathlib import Path
 from aurum.aurum_cli import AurumCLI
 from aurum.knowledgerepr.fieldnetwork import FieldNetwork
@@ -27,45 +29,42 @@ def build_aurum_and_extract_joins(csv_dir: str, output_dir: str, schema_path: st
     print("Adding and profiling data source...")
     aurum.add_csv_data_source("csv_source", csv_dir)
     aurum.profile("csv_source", schema_path=str(Path(schema_path).absolute()))
-    print('finished profiling')
+    print('finished profiling'.center(70, '-'))
     
     # Build network model
     print("Building network model...")
-    network = FieldNetwork()
-    store = StoreHandler()
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    # subprocess.call(['python3', 'networkbuildercoordinator.py', '--opath', output_dir])
+    networkbuildercoordinator.main(output_path=output_dir)
+    print('finished building network model'.center(70, '-'))
+
+    # network = FieldNetwork()
+    # store = StoreHandler()
+    # fields_gen = store.get_all_fields()
+    # network.init_meta_schema(fields_gen)
+    # build_pkfk_relation(network)
+    # join_paths = []
+    # pkfk_graph = network._get_underlying_repr_graph()
+    # for src, tgt in pkfk_graph.edges():
+    #     if 'PKFK' in pkfk_graph[src][tgt]:
+    #         src_info = network.get_info_for([src])[0]
+    #         tgt_info = network.get_info_for([tgt])[0]
+    #         join_paths.append({
+    #             'tbl1': src_info[2], # source table
+    #             'col1': src_info[3], # source column 
+    #             'tbl2': tgt_info[2], # target table
+    #             'col2': tgt_info[3]  # target column
+    #         })
     
-    # Get fields from store
-    fields_gen = store.get_all_fields()
-    network.init_meta_schema(fields_gen)
-    
-    # Build PKFK relationships
-    print("Building PKFK relationships...")
-    build_pkfk_relation(network)
-    
-    # Extract join paths from PKFK relationships
-    print("Extracting join paths...")
-    join_paths = []
-    pkfk_graph = network._get_underlying_repr_graph()
-    for src, tgt in pkfk_graph.edges():
-        if 'PKFK' in pkfk_graph[src][tgt]:
-            src_info = network.get_info_for([src])[0]
-            tgt_info = network.get_info_for([tgt])[0]
-            join_paths.append({
-                'tbl1': src_info[2], # source table
-                'col1': src_info[3], # source column 
-                'tbl2': tgt_info[2], # target table
-                'col2': tgt_info[3]  # target column
-            })
-    
-    # Save join paths in format for Metam
-    save_name = f'{Path(csv_dir).stem}_join_paths.csv'
-    output_dir = Path(output_dir)
-    if output_dir.exists() is False:
-        output_dir.mkdir()
-    print(f"Found {len(join_paths)} join paths")
-    df = pd.DataFrame(join_paths)
-    df.to_csv(output_dir / save_name, index=False)
-    print(f"Saved join paths to {output_dir}")
+    # # Save join paths in format for Metam
+    # save_name = f'{Path(csv_dir).stem}_join_paths.csv'
+    # output_dir = Path(output_dir)
+    # if output_dir.exists() is False:
+    #     output_dir.mkdir()
+    # print(f"Found {len(join_paths)} join paths")
+    # df = pd.DataFrame(join_paths)
+    # df.to_csv(output_dir / save_name, index=False)
+    # print(f"Saved join paths to {output_dir}")
 
 if __name__ == "__main__":
     import argparse
