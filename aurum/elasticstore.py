@@ -10,6 +10,8 @@ from aurum.api.apiutils import Hit
 from aurum.api.annotation import MDHit, MDComment
 import aurum.config as c
 
+import time
+
 
 class KWType(Enum):
     KW_CONTENT = 0
@@ -31,6 +33,7 @@ class StoreHandler:
             """
         self.start_elasticsearch()
         global client
+        time.sleep(5)
         client = Elasticsearch([{'host': c.db_host, 'port': c.db_port, 'scheme': 'http'}])
 
     def start_elasticsearch(self):
@@ -90,7 +93,9 @@ class StoreHandler:
                                          'hits.hits._source.dataType']
                             )
         scroll_id = res['_scroll_id']
-        remaining = res['hits']['total']
+        remaining = res['hits']['total']['value']
+        print("REMAINING: ", remaining)
+
         while remaining > 0:
             hits = res['hits']['hits']
             for h in hits:

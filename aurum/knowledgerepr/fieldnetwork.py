@@ -77,7 +77,7 @@ class FieldNetwork:
         return hits
 
     def get_cardinality_of(self, node_id):
-        c = self.__G.node[node_id]
+        c = self.__G._node[node_id]
         card = c['cardinality']
         if card is None:
             return 0  # no cardinality is like card 0
