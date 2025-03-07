@@ -23,7 +23,7 @@ rbp = RandomBinaryProjections('default', 30)
 def create_sim_graph_text(nid_gen, network, text_engine, tfidf, relation, tfidf_is_dense=False):
     st = time.time()
     row_idx = 0
-    for nid in nid_gen:
+    for nid in nid_gen: ##calls to this function pass a network as nid_gen, text_engine as network, fields as text_engine, SCHEMA_SIM CONTENT_SIM or ENTITY_SIM as relation
         if tfidf_is_dense:
             dense_row = tfidf[row_idx]
             array = dense_row
@@ -104,7 +104,7 @@ def build_schema_sim_relation(network):
     for (_, _, field_name, _) in network.iterate_values():
         docs.append(field_name)
 
-    tfidf = da.get_tfidf_docs(docs)
+    tfidf = da.get_tfidf_docs(docs) ##Term frequency
     et = time.time()
     print("Time to create docs and TF-IDF: ")
     print("Create docs and TF-IDF: {0}".format(str(et - st)))
