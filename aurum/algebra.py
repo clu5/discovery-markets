@@ -40,7 +40,8 @@ class Algebra:
         """
 
         hits = self._store_client.search_keywords(
-            keywords=kw, elasticfieldname=kw_type, max_hits=max_results)
+            keywords=kw, elasticfieldname=kw_type, max_hits=max_results
+        )
 
         # materialize generator
         drs = DRS([x for x in hits], Operation(OP.KW_LOOKUP, params=[kw]))
@@ -52,7 +53,8 @@ class Algebra:
         """
 
         hits = self._store_client.exact_search_keywords(
-            keywords=kw, elasticfieldname=kw_type, max_hits=max_results)
+            keywords=kw, elasticfieldname=kw_type, max_hits=max_results
+        )
 
         # materialize generator
         drs = DRS([x for x in hits], Operation(OP.KW_LOOKUP, params=[kw]))
@@ -73,9 +75,7 @@ class Algebra:
     def suggest_schema(self, kw: str, max_results=5):
         return self._store_client.suggest_schema(kw, max_hits=max_results)
 
-    def __neighbor_search(self,
-                        input_data,
-                        relation: Relation):
+    def __neighbor_search(self, input_data, relation: Relation):
         """
         Given an nid, node, hit or DRS, finds neighbors with specified
         relation.
@@ -106,10 +106,14 @@ class Algebra:
         return o_drs
 
     def content_similar_to(self, general_input):
-        return self.__neighbor_search(input_data=general_input, relation=Relation.CONTENT_SIM)
+        return self.__neighbor_search(
+            input_data=general_input, relation=Relation.CONTENT_SIM
+        )
 
     def schema_similar_to(self, general_input):
-        return self.__neighbor_search(input_data=general_input, relation=Relation.SCHEMA_SIM)
+        return self.__neighbor_search(
+            input_data=general_input, relation=Relation.SCHEMA_SIM
+        )
 
     def pkfk_of(self, general_input):
         return self.__neighbor_search(input_data=general_input, relation=Relation.PKFK)
@@ -118,7 +122,14 @@ class Algebra:
     TC API
     """
 
-    def paths(self, drs_a: DRS, drs_b: DRS, relation=Relation.PKFK, max_hops=2, lean_search=False) -> DRS:
+    def paths(
+        self,
+        drs_a: DRS,
+        drs_b: DRS,
+        relation=Relation.PKFK,
+        max_hops=2,
+        lean_search=False,
+    ) -> DRS:
         """
         Is there a transitive relationship between any element in a with any
         element in b?
@@ -149,10 +160,12 @@ class Algebra:
             res_drs = None
             if drs_a.mode == DRSMode.FIELDS:
                 res_drs = self._network.find_path_hit(
-                    h1, h2, relation, max_hops=max_hops)
+                    h1, h2, relation, max_hops=max_hops
+                )
             else:
                 res_drs = self._network.find_path_table(
-                    h1, h2, relation, self, max_hops=max_hops, lean_search=lean_search)
+                    h1, h2, relation, self, max_hops=max_hops, lean_search=lean_search
+                )
 
             o_drs = o_drs.absorb(res_drs)
 
@@ -171,8 +184,7 @@ class Algebra:
         o_drs = DRS([], Operation(OP.NONE))
 
         if a.mode == DRSMode.TABLE:
-            raise ValueError(
-                'input mode DRSMode.TABLE not supported')
+            raise ValueError("input mode DRSMode.TABLE not supported")
 
         fringe = a
         o_drs.absorb_provenance(a)
@@ -246,8 +258,7 @@ class Algebra:
 
             # If this is a list of inputs, condense it into a single drs
             if isinstance(general_input, list):
-                general_input = [
-                    self._general_to_drs(x) for x in general_input]
+                general_input = [self._general_to_drs(x) for x in general_input]
 
                 combined_drs = DRS([], Operation(OP.NONE))
                 for drs in general_input:
@@ -259,12 +270,13 @@ class Algebra:
             return o_drs
         except:
             msg = (
-                '--- Error ---' +
-                '\nThis function returns domain result set from the ' +
-                'supplied input' +
-                '\nusage:\n\tmake_drs( table name/hit id | [table name/hit ' +
-                'id, drs/hit/string/int] )' +
-                '\ne.g.:\n\tmake_drs(1600820766)')
+                "--- Error ---"
+                + "\nThis function returns domain result set from the "
+                + "supplied input"
+                + "\nusage:\n\tmake_drs( table name/hit id | [table name/hit "
+                + "id, drs/hit/string/int] )"
+                + "\ne.g.:\n\tmake_drs(1600820766)"
+            )
             print(msg)
 
     def _drs_from_table_hit_lean_no_provenance(self, hit: Hit) -> DRS:
@@ -307,25 +319,22 @@ class Algebra:
             general_input = DRS([x for x in hits], Operation(OP.ORIGIN))
 
         # Test for tuples that are not Hits
-        if (isinstance(general_input, tuple) and
-                not isinstance(general_input, Hit)):
+        if isinstance(general_input, tuple) and not isinstance(general_input, Hit):
             general_input = self._node_to_hit(general_input)
 
         # Test for Hits
         if isinstance(general_input, Hit):
             field = general_input.field_name
-            if field is '' or field is None:
+            if field is "" or field is None:
                 # If the Hit's field is not defined, it is in table mode
                 # and all Hits from the table need to be found
-                general_input = self._hit_to_drs(
-                    general_input, table_mode=True)
+                general_input = self._hit_to_drs(general_input, table_mode=True)
             else:
                 general_input = self._hit_to_drs(general_input)
         if isinstance(general_input, DRS):
             return general_input
 
-        raise ValueError(
-            'Input is not None, an integer, field tuple, Hit, or DRS')
+        raise ValueError("Input is not None, an integer, field tuple, Hit, or DRS")
 
     def _nid_to_hit(self, nid: int) -> Hit:
         """
@@ -384,7 +393,7 @@ class Algebra:
         ref_table = {
             MDClass.WARNING: "warning",
             MDClass.INSIGHT: "insight",
-            MDClass.QUESTION: "question"
+            MDClass.QUESTION: "question",
         }
         return ref_table[md_class]
 
@@ -398,7 +407,7 @@ class Algebra:
             MDRelation.IS_SUBCLASS_OF: ("subclass", True),
             MDRelation.IS_SUPERCLASS_OF: ("subclass", False),
             MDRelation.IS_MEMBER_OF: ("member", True),
-            MDRelation.IS_CONTAINER_OF: ("member", False)
+            MDRelation.IS_CONTAINER_OF: ("member", False),
         }
         return ref_table[md_relation]
 
@@ -417,8 +426,7 @@ class Algebra:
             return MDRelation.IS_CONTAINER_OF
 
     def _assert_same_mode(self, a: DRS, b: DRS) -> None:
-        error_text = ("Input parameters are not in the same mode ",
-                      "(fields, table)")
+        error_text = ("Input parameters are not in the same mode ", "(fields, table)")
         assert a.mode == b.mode, error_text
 
     def _represents_int(self, string: str) -> bool:
@@ -434,8 +442,14 @@ class Algebra:
 
     # Hide these for the time-being
 
-    def __annotate(self, author: str, text: str, md_class: MDClass,
-                 general_source, ref={"general_target": None, "type": None}) -> MRS:
+    def __annotate(
+        self,
+        author: str,
+        text: str,
+        md_class: MDClass,
+        general_source,
+        ref={"general_target": None, "type": None},
+    ) -> MRS:
         """
         Create a new annotation in the elasticsearch graph.
         :param author: identifiable name of user or process
@@ -461,10 +475,8 @@ class Algebra:
         if ref["type"] is None:
             for hit_source in source:
                 res = self._store_client.add_annotation(
-                    author=author,
-                    text=text,
-                    md_class=md_class,
-                    source=hit_source.nid)
+                    author=author, text=text, md_class=md_class, source=hit_source.nid
+                )
                 md_hits.append(res)
             return MRS(md_hits)
 
@@ -480,7 +492,8 @@ class Algebra:
                     text=text,
                     md_class=md_class,
                     source=hit_source.nid,
-                    target={"id": hit_target.nid, "type": md_relation})
+                    target={"id": hit_target.nid, "type": md_relation},
+                )
                 md_hits.append(res)
             return MRS(md_hits)
 
@@ -494,7 +507,8 @@ class Algebra:
         md_comments = []
         for comment in comments:
             res = self._store_client.add_comment(
-                author=author, text=comment, md_id=md_id)
+                author=author, text=comment, md_id=md_id
+            )
             md_comments.append(res)
         return MRS(md_comments)
 
@@ -506,8 +520,7 @@ class Algebra:
         """
         return self._store_client.add_tags(author, tags, md_id)
 
-    def __md_search(self, general_input=None,
-                  relation: MDRelation = None) -> MRS:
+    def __md_search(self, general_input=None, relation: MDRelation = None) -> MRS:
         """
         Searches for metadata that reference the nodes in the general
         input. If a relation is given, searches for metadata that mention the
@@ -535,8 +548,11 @@ class Algebra:
         md_hits = []
         store_relation, nid_is_source = self._mdrelation_to_str(relation)
         for node in drs_nodes:
-            md_hits.extend(self._store_client.get_metadata(nid=node.nid,
-                                                           relation=store_relation, nid_is_source=nid_is_source))
+            md_hits.extend(
+                self._store_client.get_metadata(
+                    nid=node.nid, relation=store_relation, nid_is_source=nid_is_source
+                )
+            )
         return MRS(md_hits)
 
     def __md_keyword_search(self, kw: str, max_results=10) -> MRS:
@@ -546,8 +562,7 @@ class Algebra:
         :param max_results: maximum number of results to return
         :return: returns a MRS
         """
-        hits = self._store_client.search_keywords_md(
-            keywords=kw, max_hits=max_results)
+        hits = self._store_client.search_keywords_md(keywords=kw, max_hits=max_results)
 
         mrs = MRS([x for x in hits])
         return mrs
@@ -578,28 +593,37 @@ class Helper:
             display(Markdown(string))
 
         # Check whether the request is for some specific function
-        #if function is not None:
+        # if function is not None:
         #    print_md(self.function.__doc__)
         # If not then offer the general help menu
-        #else:
+        # else:
         print_md("### Help Menu")
-        print_md("You can use the system through an **API** object. API objects are returned"
-                 "by the *init_system* function, so you can get one by doing:")
+        print_md(
+            "You can use the system through an **API** object. API objects are returned"
+            "by the *init_system* function, so you can get one by doing:"
+        )
         print_md("***your_api_object = init_system('path_to_stored_model')***")
-        print_md("Once you have access to an API object there are a few concepts that are useful "
-                 "to use the API. **content** refers to actual values of a given field. For "
-                 "example, if you have a table with an attribute called __Name__ and values *Olu, Mike, Sam*, content "
-                 "refers to the actual values, e.g. Mike, Sam, Olu.")
-        print_md("**schema** refers to the name of a given field. In the previous example, schema refers to the word"
-                 "__Name__ as that's how the field is called.")
-        print_md("Finally, **entity** refers to the *semantic type* of the content. This is in experimental state. For "
-                 "the previous example it would return *'person'* as that's what those names refer to.")
-        print_md("Certain functions require a *field* as input. In general a field is specified by the source name ("
-                 "e.g. table name) and the field name (e.g. attribute name). For example, if we are interested in "
-                 "finding content similar to the one of the attribute *year* in the table *Employee* we can provide "
-                 "the field in the following way:")
-        print(
-            "field = ('Employee', 'year') # field = [<source_name>, <field_name>)")
+        print_md(
+            "Once you have access to an API object there are a few concepts that are useful "
+            "to use the API. **content** refers to actual values of a given field. For "
+            "example, if you have a table with an attribute called __Name__ and values *Olu, Mike, Sam*, content "
+            "refers to the actual values, e.g. Mike, Sam, Olu."
+        )
+        print_md(
+            "**schema** refers to the name of a given field. In the previous example, schema refers to the word"
+            "__Name__ as that's how the field is called."
+        )
+        print_md(
+            "Finally, **entity** refers to the *semantic type* of the content. This is in experimental state. For "
+            "the previous example it would return *'person'* as that's what those names refer to."
+        )
+        print_md(
+            "Certain functions require a *field* as input. In general a field is specified by the source name ("
+            "e.g. table name) and the field name (e.g. attribute name). For example, if we are interested in "
+            "finding content similar to the one of the attribute *year* in the table *Employee* we can provide "
+            "the field in the following way:"
+        )
+        print("field = ('Employee', 'year') # field = [<source_name>, <field_name>)")
 
 
 class API(Algebra):
@@ -609,5 +633,5 @@ class API(Algebra):
         super(API, self).__init__(*args, **kwargs)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Aurum API")

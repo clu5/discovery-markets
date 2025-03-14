@@ -15,7 +15,7 @@ jgraphfile = "jgraphfile.pickle"
 
 # DB connection
 # db_host = 'localhost'
-db_host = '0.0.0.0'
+db_host = "0.0.0.0"
 # db_port = '9200'
 db_port = 9200
 
@@ -28,6 +28,6 @@ k = 512
 ###########
 ## DoD
 ###########
-separator = '|'
+separator = "|"
 join_chunksize = 1000
 memory_limit_join_processing = 0.6  # 60% of total memory

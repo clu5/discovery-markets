@@ -11,25 +11,24 @@ mylib.release_array.argtypes = [POINTER(c_int32)]
 mylib.release_array.restype = None
 
 
-
-path = c_char_p("/Users/ra-mit/Downloads/graph-1.csv".encode('utf-8'))
+path = c_char_p("/Users/ra-mit/Downloads/graph-1.csv".encode("utf-8"))
 mylib.deserialize_graph(path)
 
 
-#import networkx as nx
+# import networkx as nx
 #
-#nodes = 1000
-#edge_probability = 0.3  # fairly populated graph
-#random_g = nx.fast_gnp_random_graph(nodes, edge_probability)
+# nodes = 1000
+# edge_probability = 0.3  # fairly populated graph
+# random_g = nx.fast_gnp_random_graph(nodes, edge_probability)
 #
-#for src_id, tgt_id in random_g.edges():
+# for src_id, tgt_id in random_g.edges():
 #    mylib.add_node(src_id)
 #    mylib.add_node(tgt_id)
 #    mylib.add_edge(src_id, tgt_id, 1)
 #
-#mylib.serialize_graph_to_disk(path)
+# mylib.serialize_graph_to_disk(path)
 #
-#exit()
+# exit()
 
 nodes = mylib.get_num_nodes()
 print("Nodes: " + str(nodes))
@@ -50,7 +49,7 @@ for idx in range(output_size):
 mylib.release_array(output)
 
 etime = time.time()
-print("Total time: " + str(etime-stime))
+print("Total time: " + str(etime - stime))
 
 # NEIGHBOR QUERY
 array = POINTER(c_int32)()
@@ -97,19 +96,19 @@ def neighbor_query(src_id, type):
     mylib.release_array(array)
 
 
-path = c_char_p("random_graph_test.txt".encode('utf-8'))
+path = c_char_p("random_graph_test.txt".encode("utf-8"))
 
 mylib.serialize_graph_to_disk(path)
 
 print("DONE!")
 exit()
 
-#mylib.add_node(77)
-#mylib.add_node(78)
-#mylib.add_node(79)
+# mylib.add_node(77)
+# mylib.add_node(78)
+# mylib.add_node(79)
 #
-#mylib.add_edge(77, 78, 1)
-#mylib.add_edge(77, 79, 1)
+# mylib.add_edge(77, 78, 1)
+# mylib.add_edge(77, 79, 1)
 
 array = POINTER(c_int32)()
 
@@ -131,8 +130,6 @@ print("now strings")
 mylib.serialize_graph_to_disk.argtypes = [c_char_p]
 mylib.serialize_graph_to_disk.restype = None
 
-path = c_char_p("here_for_test.txt".encode('utf-8'))
+path = c_char_p("here_for_test.txt".encode("utf-8"))
 
 mylib.serialize_graph_to_disk(path)
-
-

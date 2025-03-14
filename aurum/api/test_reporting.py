@@ -10,7 +10,7 @@ class TestReporting(unittest.TestCase):
     # create store handler
     store_client = StoreHandler()
     # read graph
-    path = '../test/test4/'
+    path = "../test/test4/"
     network = deserialize_network(path)
     api = API(network)
     api.init_store()
@@ -27,7 +27,7 @@ class TestReporting(unittest.TestCase):
         print("Num content sim relations: " + str(ncontent))
         print("Num schema sim relations: " + str(nschema))
         print("Num PKFK relations: " + str(npkfk))
-        #topfields = r.top_connected_fields(5)
-        #print("TOP FIELDS: ")
-        #for t in topfields:
+        # topfields = r.top_connected_fields(5)
+        # print("TOP FIELDS: ")
+        # for t in topfields:
         #    print(t)

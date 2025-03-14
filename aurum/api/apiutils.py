@@ -14,7 +14,7 @@ python_version = (sys.version_info[0], sys.version_info[1], sys.version_info[2])
 
 global_origin_id = 0
 
-BaseHit = namedtuple('Hit', 'nid, db_name, source_name, field_name, score')
+BaseHit = namedtuple("Hit", "nid, db_name, source_name, field_name, score")
 
 
 class Hit(BaseHit):
@@ -47,7 +47,9 @@ class Hit(BaseHit):
         elif isinstance(other, Hit):  # cover the case of comparing a Node with a Hit
             if self.nid == other.nid:
                 return True
-        elif other != None and self.nid == other.nid:  # cover the case of comparing two nodes
+        elif (
+            other != None and self.nid == other.nid
+        ):  # cover the case of comparing two nodes
             return True
         return False
 
@@ -82,13 +84,14 @@ class Relation(Enum):
     CONTAINER = 15
 
     def from_metadata(self):
-        if self == \
-                Relation.MEANS_SAME or self == \
-                Relation.MEANS_DIFF or self == \
-                Relation.SUBCLASS or self == \
-                Relation.SUPERCLASS or self == \
-                Relation.MEMBER or self == \
-                Relation.CONTAINER:
+        if (
+            self == Relation.MEANS_SAME
+            or self == Relation.MEANS_DIFF
+            or self == Relation.SUBCLASS
+            or self == Relation.SUPERCLASS
+            or self == Relation.MEMBER
+            or self == Relation.CONTAINER
+        ):
             return True
         else:
             return False
@@ -180,7 +183,10 @@ class Provenance:
 
     def get_leafs_and_heads(self):
         # Compute leafs and heads
-        if self._cached_leafs_and_heads[0] is not None and self._cached_leafs_and_heads[1] is not None:
+        if (
+            self._cached_leafs_and_heads[0] is not None
+            and self._cached_leafs_and_heads[1] is not None
+        ):
             return self._cached_leafs_and_heads[0], self._cached_leafs_and_heads[1]
         leafs = []
         heads = []
@@ -196,7 +202,7 @@ class Provenance:
                 leafs.append(node)
             if len(suc) == 0:
                 heads.append(node)
-        #self._cached_leafs_and_heads = (leafs, heads)
+        # self._cached_leafs_and_heads = (leafs, heads)
         return leafs, heads
 
     def invalidate_leafs_heads_cache(self):
@@ -265,6 +271,7 @@ class Provenance:
         :param p:
         :return:
         """
+
         def get_name_from_hit(h: Hit):
             name = h.source_name + ":" + h.field_name
             return name
@@ -280,12 +287,17 @@ class Provenance:
         slice_range = lambda a: a + 1  # pairs
         for idx in range(len(p)):
             if (idx + 1) < len(p):
-                pair = p[idx::slice_range(idx)]
+                pair = p[idx :: slice_range(idx)]
                 src, trg = pair
                 explanation = explanation + get_name_from_hit(src) + " -> "
                 edge_info = self._p_graph[src][trg]
-                explanation = explanation + get_string_from_edge_info(edge_info) + " -> " \
-                    + get_name_from_hit(trg) + '\n'
+                explanation = (
+                    explanation
+                    + get_string_from_edge_info(edge_info)
+                    + " -> "
+                    + get_name_from_hit(trg)
+                    + "\n"
+                )
         return explanation
 
 
@@ -339,9 +351,9 @@ class DRS:
                 raise StopIteration
 
     def __dict__(self):
-        '''
+        """
         prepares a dictionary to return for jsonification with the api
-        '''
+        """
         mode = self.mode  # save state
         sources = {}
         edges = []
@@ -354,11 +366,9 @@ class DRS:
             # create a new source_res if necessary
             if not sources.get(table, None):
                 source_res = x.__dict__()
-                sources[table] = {
-                    'source_res': source_res,
-                    'field_res': []}
+                sources[table] = {"source_res": source_res, "field_res": []}
 
-            sources[table]['field_res'].append(x.__dict__())
+            sources[table]["field_res"].append(x.__dict__())
 
         # convert edges into a dict
         for edge in self.get_provenance().prov_graph().edges():
@@ -367,7 +377,7 @@ class DRS:
             edges.append((origin, destination))
 
         self._mode = mode
-        return {'sources': sources, 'edges': edges}
+        return {"sources": sources, "edges": edges}
 
     @property
     def data(self):
@@ -415,12 +425,12 @@ class DRS:
         :param drs:
         :return:
         """
+
         def annotate_union_edges(label):
             # Find nodes that intersect (those that will contain add_edges)
             my_data = set(self.data)
             merging_data = set(drs.data)
-            disjoint = my_data.intersection(
-                merging_data)  # where a union is created
+            disjoint = my_data.intersection(merging_data)  # where a union is created
             # Now find the incoming edges to these nodes in each of the drs's
             node_and_edges = []
             for el in disjoint:
@@ -447,14 +457,13 @@ class DRS:
         # Get prov graph of merging
         prov_graph_of_merging = drs.get_provenance().prov_graph()
         # Compose into my prov graph
-        merge = nx.compose(self._provenance.prov_graph(),
-                           prov_graph_of_merging)
+        merge = nx.compose(self._provenance.prov_graph(), prov_graph_of_merging)
 
         if annotate_and_edges:
-            annotate_union_edges('AND')
+            annotate_union_edges("AND")
 
         if annotate_or_edges:
-            annotate_union_edges('OR')
+            annotate_union_edges("OR")
 
         # Rewrite my prov graph to the new merged one and return
         self._provenance.swap_p_graph(merge)
@@ -543,7 +552,6 @@ class DRS:
         result.absorb_provenance(self)
         result.absorb_provenance(drs)
         return result
-
 
     """
     Mode configuration functions
@@ -679,13 +687,19 @@ class DRS:
             :return:
             """
             current_score = float(src.score)
-            ns = [x for x in pg.neighbors(src) if x not in nodes_already_visited]  # skip already visited nodes
-            #ns = [x for x in pg.neighbors(src)]
+            ns = [
+                x for x in pg.neighbors(src) if x not in nodes_already_visited
+            ]  # skip already visited nodes
+            # ns = [x for x in pg.neighbors(src)]
             if len(ns) == 1:
                 nodes_already_visited.add(ns[0])
-                current_score = current_score + get_score_continuous_path(pg, ns[0], nodes_already_visited)
+                current_score = current_score + get_score_continuous_path(
+                    pg, ns[0], nodes_already_visited
+                )
             elif len(ns) > 1:
-                current_score = current_score + decide_path(pg, ns, nodes_already_visited)
+                current_score = current_score + decide_path(
+                    pg, ns, nodes_already_visited
+                )
             # Last option: when there are no neighbors, we simply return
             # current_store
             return current_score
@@ -697,7 +711,7 @@ class DRS:
         for el in self.data:
             if el not in nodes_already_visited:
                 score = get_score_continuous_path(pg, el, nodes_already_visited)
-                self._rank_data[el]['certainty_score'] = score
+                self._rank_data[el]["certainty_score"] = score
 
     def _compute_coverage_scores(self):
         # Get total number of ORIGIN elements FIXME: (not KW, etc)
@@ -720,7 +734,7 @@ class DRS:
                 idx = self._origin_values_coverage[element_covered]
                 coverage_set[idx] = True
             coverage = float(len(elements)) / float(total_number)
-            self._rank_data[el]['coverage_score'] = (coverage, coverage_set)
+            self._rank_data[el]["coverage_score"] = (coverage, coverage_set)
 
     def compute_ranking_scores(self):
 
@@ -745,15 +759,17 @@ class DRS:
 
         elements = []
         for el, score_dict in self._rank_data.items():
-            if 'certainty_score' in score_dict:
-                value = (el, score_dict['certainty_score'])
+            if "certainty_score" in score_dict:
+                value = (el, score_dict["certainty_score"])
             else:
                 value = (el, 0)  # no certainty score is like 0
             elements.append(value)
         elements = sorted(elements, key=lambda a: a[1], reverse=True)
         self._data = [el for (el, score) in elements]  # save data in order
         self._ranking_criteria = self.RankingCriteria.CERTAINTY
-        self._chosen_rank = elements  # store ranked data with scores for debugging/inspection
+        self._chosen_rank = (
+            elements  # store ranked data with scores for debugging/inspection
+        )
 
         return self
 
@@ -768,15 +784,17 @@ class DRS:
 
         elements = []
         for el, score_dict in self._rank_data.items():
-            if 'coverage_score' in score_dict:
-                value = (el, score_dict['coverage_score'])
+            if "coverage_score" in score_dict:
+                value = (el, score_dict["coverage_score"])
             else:
                 value = (el, 0)  # no coverage score is like 0
             elements.append(value)
         elements = sorted(elements, key=lambda a: a[1][0], reverse=True)
         self._data = [el for (el, score) in elements]  # save data in order
         self._ranking_criteria = self.RankingCriteria.COVERAGE
-        self._chosen_rank = elements  # store ranked data with scores for debugging/inspection
+        self._chosen_rank = (
+            elements  # store ranked data with scores for debugging/inspection
+        )
 
         return self
 
@@ -870,8 +888,10 @@ class DRS:
         seen_nid = dict()
         for x in self:
             if x not in seen_nid:
-                string = "DB: {0:20} TABLE: {1:30} FIELD: {2:30}".format(x.db_name, x.source_name, x.field_name)
-                #string = "DB: " + x.db_name + "\t\t SOURCE: " + x.source_name + "\t\t FIELD: " + x.field_name
+                string = "DB: {0:20} TABLE: {1:30} FIELD: {2:30}".format(
+                    x.db_name, x.source_name, x.field_name
+                )
+                # string = "DB: " + x.db_name + "\t\t SOURCE: " + x.source_name + "\t\t FIELD: " + x.field_name
                 print(string)
             seen_nid[x] = 0
         self._mode = mode  # recover state
@@ -882,8 +902,10 @@ class DRS:
         seen_nid = dict()
         for x, score in self._chosen_rank:
             if x not in seen_nid:
-                string = "DB: {0:20} TABLE: {1:30} FIELD: {2:30} SCORE: {3:10}".format(x.db_name, x.source_name, x.field_name, str(score))
-                #string = "DB: " + x.db_name + "\t\t SOURCE: " + x.source_name + "\t FIELD: " + \
+                string = "DB: {0:20} TABLE: {1:30} FIELD: {2:30} SCORE: {3:10}".format(
+                    x.db_name, x.source_name, x.field_name, str(score)
+                )
+                # string = "DB: " + x.db_name + "\t\t SOURCE: " + x.source_name + "\t FIELD: " + \
                 #    x.field_name + "\t SCORE: " + str(score)
                 print(string)
             seen_nid[x] = 0
