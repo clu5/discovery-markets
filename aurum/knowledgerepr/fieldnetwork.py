@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import operator
 import networkx as nx
+import pickle
 import os
 
 from collections import defaultdict
@@ -76,9 +77,8 @@ class FieldNetwork:
         hits = [Hit(nid, db_name, s_name, f_name, 0) for nid, db_name, s_name, f_name in info]
         return hits
 
-    def get_cardinality_of(self, node_id):
-        c = self.__G._node[node_id]
-        card = c['cardinality']
+    def get_cardinality_of(self, nid):
+        card = self.__G.nodes[nid]['cardinality']
         if card is None:
             return 0  # no cardinality is like card 0
         return card
@@ -149,7 +149,7 @@ class FieldNetwork:
         :return:
         """
         score = {'score': score}
-        self.__G.add_edge(node_src, node_target, relation, score)
+        self.__G.add_edge(node_src, node_target, key=relation, **score)
 
     def fields_degree(self, topk):
         degree = nx.degree(self.__G)
@@ -432,7 +432,7 @@ class FieldNetwork:
         o_drs = assemble_table_path_provenance(o_drs, found_paths, relation)
 
         return o_drs
-
+    
 
 def serialize_network_to_csv(network, path):
     nodes = set()
@@ -447,6 +447,23 @@ def serialize_network_to_csv(network, path):
         for n in nodes:
             s = str(n) + "," + "node\n"
             f.write(s)
+
+def _write_gpickle(graph, path):
+    '''
+    networkx.*_gpickle operations were deprecated from 2.x -> 3.0, so we must manually 
+    pickle the graph object.
+    '''
+    with open(path, 'wb') as f:
+        pickle.dump(graph, f, protocol=pickle.HIGHEST_PROTOCOL)
+    
+
+def _read_gpickle(path):
+    '''
+    networkx.*_gpickle operations were deprecated from 2.x -> 3.0, so we must manually 
+    unpickle the graph object.
+    '''
+    with open(path, 'rb') as f:
+        return pickle.load(f)
 
 def serialize_network(network, path):
     """
@@ -463,16 +480,21 @@ def serialize_network(network, path):
     path = path + '/'  # force separator
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
-    nx.write_gpickle(G, path + "graph.pickle")
-    nx.write_gpickle(id_to_field_info, path + "id_info.pickle")
-    nx.write_gpickle(table_to_ids, path + "table_ids.pickle")
+    _write_gpickle(G, path + "graph.pickle")
+    _write_gpickle(id_to_field_info, path + "id_info.pickle")
+    _write_gpickle(table_to_ids, path + "table_ids.pickle")
+
+    print("Successfully serialized network to " + path)
 
 
 def deserialize_network(path):
-    G = nx.read_gpickle(path + "graph.pickle")
-    id_to_info = nx.read_gpickle(path + "id_info.pickle")
-    table_to_ids = nx.read_gpickle(path + "table_ids.pickle")
+    G = _read_gpickle(path + "graph.pickle")
+    id_to_info = _read_gpickle(path + "id_info.pickle")
+    table_to_ids = _read_gpickle(path + "table_ids.pickle")
     network = FieldNetwork(G, id_to_info, table_to_ids)
+
+    print("Successfully deserialized network from " + path)
+
     return network
 
 

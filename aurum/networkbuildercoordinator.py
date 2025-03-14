@@ -92,9 +92,10 @@ def main(output_path=None):
     fieldnetwork.serialize_network(network, output_path)
 
     # Serialize indexes
-    path_schsim = path + "/schema_sim_index.pkl"
+    # TODO: Is this the correct path???
+    path_schsim = output_path + "/schema_sim_index.pkl"
     io.serialize_object(schema_sim_index, path_schsim)
-    path_cntsim = path + "/content_sim_index.pkl"
+    path_cntsim = output_path + "/content_sim_index.pkl"
     io.serialize_object(content_sim_index, path_cntsim)
 
     print("DONE!")
