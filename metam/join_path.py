@@ -1,14 +1,29 @@
 import pandas as pd
 from join_column import JoinColumn
 import random
+
 def get_column_lst(joinable_lst):
+    """
+    Processes a list of joinable paths and returns a list of JoinColumn objects and
+    a skip count (how many joinable paths were skipped during processing).
+
+    Parameters:
+    joinable_lst (list): List of joinable paths.
+
+    Returns:
+    tuple: A tuple containing the list of JoinColumn objects and the skip count.
+    """
+
     i=0
     skip_count=0
     new_col_lst=[]
+
     while i<len(joinable_lst):
         print (i,len(new_col_lst))
         jp=joinable_lst[i]
         print (jp.join_path[0].tbl,jp.join_path[0].col,jp.join_path[1].tbl,jp.join_path[1].col)
+
+        # Skip conditions
         if jp.join_path[1].tbl in ignore_lst or jp.join_path[0].tbl in ignore_lst:
             i+=1
             continue
@@ -22,13 +37,14 @@ def get_column_lst(joinable_lst):
                 i+=1
                 continue
 
-
+        # Load data if not already loaded
         if jp.join_path[0].tbl not in data_dic.keys():
             df_l=pd.read_csv(path+"/"+jp.join_path[0].tbl,low_memory=False)
             data_dic[jp.join_path[0].tbl]=df_l
             print ("dataset size is ",df_l.shape)
         else:
             df_l=data_dic[jp.join_path[0].tbl]
+
         if jp.join_path[1].tbl not in data_dic.keys():
             df_r=pd.read_csv(path+"/"+jp.join_path[1].tbl,low_memory=False)
             data_dic[jp.join_path[1].tbl]=df_r
@@ -36,6 +52,8 @@ def get_column_lst(joinable_lst):
         else:
             df_r=data_dic[jp.join_path[1].tbl]
         collst=list(df_r.columns)
+
+        # Skip if columns are not present or are numeric
         if jp.join_path[1].col not in df_r.columns or jp.join_path[0].col not in df_l.columns:
             i+=1
             continue
@@ -43,6 +61,8 @@ def get_column_lst(joinable_lst):
             skip_count+=1
             i+=1
             continue
+
+        # Process columns
         for col in collst:
             if jp.join_path[1].tbl=='2013_NYC_School_Survey.csv' or jp.join_path[1].tbl =='5a8g-vpdd.csv':
                 continue
@@ -56,23 +76,45 @@ def get_column_lst(joinable_lst):
                 print(col,jc.merged_df,len(new_col_lst)-1,"test1")
                 f1.close()
         i+=1
+
     return (new_col_lst,skip_count)
 
 class JoinPath:
+    """
+    Represents a join path consisting of multiple join keys.
+    """
     def __init__(self, join_key_list):
         self.join_path = join_key_list
 
     def to_str(self):
+        """
+        Converts the join path to a string representation.
+
+        Returns:
+        str: The string representation of the join path.
+        """
+
         format_str = ""
         for i, join_key in enumerate(self.join_path):
             format_str += join_key.tbl[:-4] + '.' + join_key.col
             if i < len(self.join_path) - 1:
                 format_str += " JOIN "
         return format_str
+
     def set_df(self,data_dic):
+        """
+        Sets the dataset for each join key in the join path.
+
+        Parameters:
+        data_dic (dict): Dictionary containing dataset information.
+        """
         for i, join_key in enumerate(self.join_path):
             join_key.dataset=data_dic[join_key.tbl]
+
     def print_metadata_str(self):
+        """
+        Prints the metadata string for the join path.
+        """
         print(self.to_str())
         for join_key in self.join_path:
             print(join_key.tbl[:-4] + "." + join_key.col)
@@ -85,6 +127,9 @@ class JoinPath:
         return 0
 
 class JoinKey:
+    """
+    Represents a join key with metadata information.
+    """
     def __init__(self, col_drs, unique_values, total_values, non_empty):
         self.dataset=''
         try:
@@ -97,7 +142,7 @@ class JoinKey:
         self.unique_values = unique_values
         self.total_values = total_values
         self.non_empty = non_empty
-        try: 
+        try:
            if col_drs.metadata == 0:
                 self.join_card = 0
                 self.js = 0
@@ -109,6 +154,16 @@ class JoinKey:
         except:
             self.js=0
 def get_join_type(join_card):
+    """
+    Determines the join type based on the join cardinality.
+
+    Parameters:
+    join_card (int): The join cardinality.
+
+    Returns:
+    str: The join type."
+    """
+
     if join_card == 0:
         return "One-to-One"
     elif join_card == 1:
@@ -119,6 +174,15 @@ def get_join_type(join_card):
         return "Many-to-Many"
 
 def find_farthest(distance_dic):
+    """
+    Finds the index of the farthest distance in the distance dictionary.
+
+    Parameters:
+    distance_dic (dict): Dictionary containing distances.
+
+    Returns:
+    int: The index of the farthest distance.
+    """
     max_dist=-1
     max_dis_index=-1
     for index in distance_dic.keys():
@@ -126,11 +190,21 @@ def find_farthest(distance_dic):
             max_dist=distance_dic[index]
             max_dist_index=index
 
-    print (max_dist,max_dist_index) 
+    print (max_dist,max_dist_index)
     return max_dist_index
 
 
 def get_clusters(assignment,k):
+    """
+    Groups assignments into clusters.
+
+    Parameters:
+    assignment (dict): Dictionary containing assignment information.
+    k (int): Number of clusters.
+
+    Returns:
+    list: List of clusters.
+    """
     clusters=[]
     i=0
     while i<k:
@@ -144,6 +218,18 @@ def get_clusters(assignment,k):
     return clusters
 
 def cluster_join_paths(joinable_lst,k,epsilon):
+    """
+    Clusters joinable paths into k clusters based on distance and epsilon threshold.
+
+    Parameters:
+    joinable_lst (list): List of joinable paths.
+    k (int): Number of clusters.
+    epsilon (float): Distance threshold for clustering.
+
+    Returns:
+    tuple: A tuple containing the centers, assignments, and clusters.
+    """
+
     i=0
     random.seed(0)
     centers=[]
@@ -152,10 +238,10 @@ def cluster_join_paths(joinable_lst,k,epsilon):
     max_dist=0
     while i<k:
         if i==0:
-            centers.append(random.randint(0,len(joinable_lst)))     
+            centers.append(random.randint(0,len(joinable_lst)))
         else:
             centers.append(find_farthest(distance))
-        #Assignment 
+        #Assignment
         iter=0
         for j in joinable_lst:
             if i==0:
@@ -179,8 +265,19 @@ def cluster_join_paths(joinable_lst,k,epsilon):
 
 
 def get_join_paths_from_file(querydata,filepath):
+    """
+    Retrieves join paths from a file based on query data.
+
+    Parameters:
+    querydata: The query data to filter join paths.
+    filepath: Path to the CSV file containing join paths.
+
+    Returns:
+    list: List of JoinPath objects.
+    """
     df=pd.read_csv(filepath)
 
+    # filter rows based on querydata
     subdf=df[df['tbl1']==querydata]
     subdf2=df[df['tbl2']==querydata]
 

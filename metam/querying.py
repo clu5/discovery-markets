@@ -20,7 +20,7 @@ import group_helper
 def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,class_attr,clusters,assignment,uninfo,epsilon):
 
     """
-    Main function to implement Metam's adaptive querying strategy.
+    Main function to implement Metam's Algorithm I (Adapative Querying Strategy + Group Mechanism)
 
     Parameters:
     tau (int): Number of iterations for querying.
@@ -36,6 +36,8 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
     assignment (dict): Dictionary of assignments.
     uninfo (dict): Uninformative features.
     epsilon (float): Epsilon value for homogeneity check.
+
+    Returns the modified initial data frame.
     """
 
 
@@ -45,7 +47,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
         likelihood_num.append(1)
         likelihood_den.append(1)
 
-    # Calculate cluster sizes
+    # Calculate cluster sizes: count the number of elements in each cluster
     cluster_size={}
     for k in assignment.keys():
         if assignment[k] in cluster_size.keys():
@@ -70,7 +72,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
     run_seq=True
     overall_queried={}
 
-
+    # Within the loop, selects candidates based on some sorting criteria, queries them, and updates metrics
     while True:
         if metric >=theta:
             break

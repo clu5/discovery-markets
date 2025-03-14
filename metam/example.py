@@ -42,8 +42,8 @@ filepath=''#File containing all join paths
 options = join_path.get_join_paths_from_file(query_data,filepath)
 
 
+# List of all files in the dataset path
 files = [f for f in listdir(path) if isfile(join(path, f))]
-
 
 dataset_lst=[]
 data_dic={}
@@ -60,18 +60,21 @@ i=0
 new_col_lst=[]
 skip_count=0
 
+# Process each join path
 while i<len(joinable_lst):
     print (i,len(new_col_lst))
     jp=joinable_lst[i]
     print (jp.join_path[0].tbl,jp.join_path[0].col,jp.join_path[1].tbl,jp.join_path[1].col)
-    
 
+    # Load left table if not already loaded
     if jp.join_path[0].tbl not in data_dic.keys():
         df_l=pd.read_csv(path+"/"+jp.join_path[0].tbl,low_memory=False)
         data_dic[jp.join_path[0].tbl]=df_l
         #print ("dataset size is ",df_l.shape)
     else:
         df_l=data_dic[jp.join_path[0].tbl]
+
+    # Load right table if not already loaded
     if jp.join_path[1].tbl not in data_dic.keys():
         df_r=pd.read_csv(path+"/"+jp.join_path[1].tbl,low_memory=False)
         data_dic[jp.join_path[1].tbl]=df_r
@@ -79,21 +82,24 @@ while i<len(joinable_lst):
     else:
         df_r=data_dic[jp.join_path[1].tbl]
     collst=list(df_r.columns)
+
+    # Skip join paths if they are not found
     if jp.join_path[1].col not in df_r.columns or jp.join_path[0].col not in df_l.columns:
         i+=1
         continue
-    
+
+    # Create JoinColumn objects for each column in the right table
     for col in collst:
-        
         jc=JoinColumn(jp,df_r,col,base_df,class_attr,len(new_col_lst),uninfo)
         new_col_lst.append(jc)
-        
+
     i+=1
 
-
+# Cluster join paths
 (centers,assignment,clusters)=join_path.cluster_join_paths(new_col_lst,100,epsilon)
 print (centers)
 
+# Determine the number of clusters
 tau = len(centers)
 
 
@@ -108,7 +114,6 @@ candidates=centers
 if tau==1:
     candidates=[i for i in range(len(new_col_lst))]
 
-
-augmented_df= querying.run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,class_attr,clusters,assignment,uninfo,epsilon)    
+# Run metam to augment the df
+augmented_df= querying.run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,class_attr,clusters,assignment,uninfo,epsilon)
 augmented_df.to_csv('augmented_data.csv')
-
