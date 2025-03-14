@@ -11,6 +11,7 @@ from ctypes import *
 global gI
 gI = None
 
+
 def load_and_config_library(libname):
     global gI
     gI = cdll.LoadLibrary(libname)
@@ -25,7 +26,7 @@ def load_and_config_library(libname):
 
 
 def get_gI_path(path: str):
-    p = c_char_p(path.encode('utf-8'))
+    p = c_char_p(path.encode("utf-8"))
     return p
 
 
@@ -33,11 +34,13 @@ class GIndexEKG(EKGapi):
 
     def __init__(self, config=None):
         self.backend_type = EKGapi.BackEndType.G_INDEX
-        self.pg = PGStore(db_ip=config.host,
-                          db_port=config.port,
-                          db_name=config.db_name,
-                          db_user=config.db_user,
-                          db_passwd=config.db_passwd)
+        self.pg = PGStore(
+            db_ip=config.host,
+            db_port=config.port,
+            db_name=config.db_name,
+            db_user=config.db_user,
+            db_passwd=config.db_passwd,
+        )
 
     """
     WRITE OPS
@@ -45,9 +48,17 @@ class GIndexEKG(EKGapi):
 
     def init(self, fields: (int, str, str, str, int, int, str)):
         print("Building schema relation...")
-        for (nid, db_name, sn_name, fn_name, total_values, unique_values, data_type) in fields:
-            #self.__id_names[nid] = (db_name, sn_name, fn_name, data_type)
-            #self.__source_ids[sn_name].append(nid)
+        for (
+            nid,
+            db_name,
+            sn_name,
+            fn_name,
+            total_values,
+            unique_values,
+            data_type,
+        ) in fields:
+            # self.__id_names[nid] = (db_name, sn_name, fn_name, data_type)
+            # self.__source_ids[sn_name].append(nid)
             uniqueness_ratio = None
             if float(total_values) > 0:
                 uniqueness_ratio = float(unique_values) / float(total_values)
@@ -58,7 +69,12 @@ class GIndexEKG(EKGapi):
         self.pg.new_node(node_id=nid, uniqueness_ratio=uniqueness_ratio)
 
     def add_edge(self, node_src, node_target, relation, score):
-        self.pg.new_edge(source_node_id=node_src, target_node_id=node_target, relation_type=relation, weight=score)
+        self.pg.new_edge(
+            source_node_id=node_src,
+            target_node_id=node_target,
+            relation_type=relation,
+            weight=score,
+        )
 
     """
     READ OPS

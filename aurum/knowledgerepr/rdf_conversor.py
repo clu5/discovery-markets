@@ -5,6 +5,7 @@ import pprint as pp
 
 n = Namespace("http://ex.org/")
 
+
 def parse_line(l):
     tokens = l.split(",")
     source = tokens[0]
@@ -14,7 +15,7 @@ def parse_line(l):
 
 
 def yield_triple(path):
-    with open(path, 'r') as f:
+    with open(path, "r") as f:
         first = True
         for l in f:
             if first:  # skip header
@@ -26,6 +27,7 @@ def yield_triple(path):
 
 def create_rdf_graph_from_csv(csv_path):
     from rdflib import Graph
+
     g = Graph()
     c = 0
     for source, target, rtype in yield_triple(csv_path):
@@ -39,11 +41,10 @@ def create_rdf_graph_from_csv(csv_path):
         o = rdflib.term.URIRef("http://ex.org/" + rtype)
         t = rdflib.term.URIRef("http://ex.org/" + target)
         g.add((s, o, t))
-    g.serialize(destination="test.rdf", format='xml')
+    g.serialize(destination="test.rdf", format="xml")
 
 
 if __name__ == "__main__":
     print("RDF conversor")
 
     create_rdf_graph_from_csv("/Users/ra-mit/Downloads/graph-1.csv")
-

@@ -18,7 +18,7 @@ def path_benchmark(max_hops=0):
         s = time.time()
         api_gindex.path_query(src, tgt, 1, max_hops)
         e = time.time()
-        measurements.append((e-s))
+        measurements.append((e - s))
     return measurements
 
 

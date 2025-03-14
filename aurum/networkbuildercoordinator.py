@@ -35,8 +35,8 @@ def main(output_path=None):
 
     # Entity_sim relation
     start_entity_sim = time.time()
-    #fields, entities = store.get_all_fields_entities()
-    #networkbuilder.build_entity_sim_relation(network, fields, entities)
+    # fields, entities = store.get_all_fields_entities()
+    # networkbuilder.build_entity_sim_relation(network, fields, entities)
     end_entity_sim = time.time()
     print("Total entity-sim: {0}".format(str(end_entity_sim - start_entity_sim)))
 
@@ -65,15 +65,19 @@ def main(output_path=None):
 
     content_sim_index = networkbuilder.build_content_sim_mh_text(network, mh_signatures)
     end_text_sig_sim = time.time()
-    print("Total text-sig-sim (minhash): {0}".format(str(end_text_sig_sim - start_text_sig_sim)))
+    print(
+        "Total text-sig-sim (minhash): {0}".format(
+            str(end_text_sig_sim - start_text_sig_sim)
+        )
+    )
     print("!!4 " + str(end_text_sig_sim - start_text_sig_sim))
 
     # Content_sim num relation
     start_num_sig_sim = time.time()
     id_sig = store.get_all_fields_num_signatures()
-    #networkbuilder.build_content_sim_relation_num(network, id_sig)
+    # networkbuilder.build_content_sim_relation_num(network, id_sig)
     networkbuilder.build_content_sim_relation_num_overlap_distr(network, id_sig)
-    #networkbuilder.build_content_sim_relation_num_overlap_distr_indexed(network, id_sig)
+    # networkbuilder.build_content_sim_relation_num_overlap_distr_indexed(network, id_sig)
     end_num_sig_sim = time.time()
     print("Total num-sig-sim: {0}".format(str(end_num_sig_sim - start_num_sig_sim)))
     print("!!5 " + str(end_num_sig_sim - start_num_sig_sim))
@@ -115,18 +119,18 @@ def plot_num():
         yaxis.append(y)
     print("Num points: " + str(numpoints))
     import matplotlib.pyplot as plt
-    plt.plot(xaxis, yaxis, 'ro')
+
+    plt.plot(xaxis, yaxis, "ro")
     plt.axis([0, 600000, 0, 600000])
-    #plt.axis([0, 10000, 0, 10000])
-    #plt.axis([0, 500, 0, 500])
+    # plt.axis([0, 10000, 0, 10000])
+    # plt.axis([0, 500, 0, 500])
     plt.show()
 
 
 def test_content_sim_num():
-
-    '''
+    """
     SETUP
-    '''
+    """
 
     start_all = time.time()
     network = FieldNetwork()
@@ -141,9 +145,9 @@ def test_content_sim_num():
     end_schema = time.time()
     print("Total skeleton: {0}".format(str(end_schema - start_schema)))
 
-    '''
+    """
     ACTUAL TEST
-    '''
+    """
 
     # Content_sim num relation
     start_num_sig_sim = time.time()
@@ -156,8 +160,8 @@ def test_content_sim_num():
 
 if __name__ == "__main__":
 
-    #test_content_sim_num()
-    #exit()
+    # test_content_sim_num()
+    # exit()
 
     path = None
     if len(sys.argv) == 3:
@@ -170,8 +174,8 @@ if __name__ == "__main__":
         exit()
     main(path)
 
-    #test_read_store()
+    # test_read_store()
 
-    #test()
-    #plot_num()
-    #test_cardinality_propagation()
+    # test()
+    # plot_num()
+    # test_cardinality_propagation()
