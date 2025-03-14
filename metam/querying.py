@@ -19,6 +19,25 @@ import group_helper
 
 def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,class_attr,clusters,assignment,uninfo,epsilon):
 
+    """
+    Main function to implement Metam's adaptive querying strategy.
+
+    Parameters:
+    tau (int): Number of iterations for querying.
+    oracle (object): Oracle used for training and classification.
+    candidates (list): List of candidate columns.
+    theta (float): Threshold value for stopping criterion.
+    metric (float): Initial metric value.
+    initial_df (DataFrame): Initial dataframe.
+    new_col_lst (list): List of new columns.
+    weights (list): Weights for the columns.
+    class_attr (str): Class attribute for the classification.
+    clusters (list): List of clusters.
+    assignment (dict): Dictionary of assignments.
+    uninfo (dict): Uninformative features.
+    epsilon (float): Epsilon value for homogeneity check.
+    """
+
 
     likelihood_num=[]
     likelihood_den=[]
@@ -26,6 +45,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
         likelihood_num.append(1)
         likelihood_den.append(1)
 
+    # Calculate cluster sizes
     cluster_size={}
     for k in assignment.keys():
         if assignment[k] in cluster_size.keys():
@@ -38,6 +58,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
         #print ("center details",new_col_lst[centers[k]].corr)
 
 
+    # Criterion for stopping the algorithm
     stopping_criterion=1000#10000
     base_df=copy.deepcopy(initial_df)
     orig_metric = oracle.train_classifier(base_df,class_attr)
@@ -48,6 +69,8 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
     grp_queried_cand={}
     run_seq=True
     overall_queried={}
+
+
     while True:
         if metric >=theta:
             break
@@ -80,11 +103,11 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
                 else:
                     break
                 j+=1
-            
+
             if j==len(sorted_cand):
                 break
 
-            #Query the candidate 
+            #Query the candidate
             print ("Chosen candidate in iteration ", i,len(queried_cand))
             print ("Candidate id and score ", sorted_cand[j])
 
@@ -102,6 +125,8 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
             if run_seq:
                 merged_df=copy.deepcopy(initial_df)
                 candidate_id = sorted_cand[j][0]
+
+                # Adds a new column corresponding to the candidate id
                 merged_df[new_col_lst[candidate_id].column]=new_col_lst[candidate_id].merged_df[new_col_lst[candidate_id].column]
                 tmp_metric=max(oracle.train_classifier(merged_df,class_attr),metric)
                 print("iteration",tmp_metric,new_col_lst[candidate_id].join_path.join_path[1].tbl+";"+new_col_lst[candidate_id].join_path.join_path[1].col)
@@ -110,6 +135,8 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
                 queried_cand[candidate_id] = tmp_metric-metric
                 total_queries+=1
                 fout.write(str(max(curr_max,curr_max_grp))+" "+str(total_queries)+"\n")
+
+                # Updates new metric and profile values
                 if tmp_metric > curr_max:
                     curr_max=tmp_metric
                     max_candidate = merged_df
@@ -122,13 +149,15 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
                 #4a
                 #break
 
-            
 
-            
+
+
             if len(list(grp_queried_cand.keys())) == len(new_col_lst):
                 grp_size*=2
 
             (jc_lst,jc_representation)=group_helper.identify_group_query(new_col_lst,clusters,grp_size,likelihood_num,likelihood_den,grp_queried_cand)
+
+
             grp_merged_df=copy.deepcopy(base_df)
             for jc in jc_lst:
                 grp_merged_df[jc.column]=jc.merged_df[jc.column]
@@ -139,7 +168,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
             if len(jc_lst)==1:
                 queried_cand[jc_lst[0].loc] = tmp_metric-orig_metric
                 #if tmp_metric-orig_metric > 0:
-                #    candidates.append(jc_lst[0].loc)        
+                #    candidates.append(jc_lst[0].loc)
             grp_queried_cand[jc_representation] = tmp_metric
             total_queries+=1
             fout.write(str(max(curr_max,curr_max_grp))+" "+str(total_queries)+"\n")
@@ -150,6 +179,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
                 max_grp_file=new_col_lst[candidate_id].join_path.join_path[1].tbl+";"+new_col_lst[candidate_id].join_path.join_path[1].col
                 print(new_col_lst[candidate_id].profile_values)
                 print (grp_merged_df)
+
             #Likelihood update
             for jc in jc_lst:
                 clust_id=assignment[jc]
@@ -208,7 +238,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
                     #    irregularity_count+=1
                     fout.write(str(max(curr_max,curr_max_grp))+" "+str(total_queries)+"\n")
                     samp_iter+=1
-                
+
                 #Check mean (1+epsilon)
                 print (queried_lst)
                 mean_sc=sum(queried_lst)* 1.0/len(queried_lst)
@@ -220,7 +250,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
                     print ("not a homogenous cluster", mean_sc, count, len(lst))
                     for c in lst:
                         candidates.append(c.loc)
-                
+
                 fout1=open('log.txt','a')
                 fout1.write(str(cl_iter)+" cluster count "+str(count)+" "+str(len(queried_lst))+"\n")
                 fout1.close()
@@ -249,7 +279,7 @@ def run_metam(tau,oracle,candidates,theta,metric,initial_df,new_col_lst,weights,
             initial_df = max_candidate
 
 
-       
+
         iter+=1
 
 
