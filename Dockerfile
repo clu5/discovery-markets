@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     gradle \
     git \
     vim \
-    wget \ 
+    wget \
     gnupg \
     && wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | gpg --dearmor > /usr/share/keyrings/elasticsearch-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list \
@@ -59,7 +59,10 @@ RUN pip install jupyter numpy scipy networkx pandas matplotlib black tqdm elasti
 # Configure Black formatter
 RUN echo "[tool.black]\nline-length = 120" > pyproject.toml
 
-# Make port available to the world outside this container 
+# Initialize pre-commit formatting
+RUN pre-commit install
+
+# Make port available to the world outside this container
 EXPOSE 9200
 EXPOSE 9300
 
