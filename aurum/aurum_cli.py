@@ -28,9 +28,9 @@ class ModelNotFoundError(BaseAurumException):
 
 @dataclass()
 class CSVDataSource:
-    name: str = 'NO NAME PROVIDED'
+    name: str = "NO NAME PROVIDED"
     _path: Path = Path.cwd()
-    separator: str = ','
+    separator: str = ","
 
     @property
     def path(self):
@@ -43,12 +43,9 @@ class CSVDataSource:
 
     def __dict__(self):
         return {
-            'name': self.name,
-            'type': 'csv',
-            'config': {
-                'path': str(self.path),
-                'separator': self.separator
-            }
+            "name": self.name,
+            "type": "csv",
+            "config": {"path": str(self.path), "separator": self.separator},
         }
 
     def to_yml(self):
@@ -63,13 +60,13 @@ sources:
 
 @dataclass()
 class DBDataSource:
-    name: str = ''
-    host: str = ''
-    _port: int = ''
-    db_name: str = ''
-    db_user: str = ''
-    db_password: str = ''
-    _type: str = ''
+    name: str = ""
+    host: str = ""
+    _port: int = ""
+    db_name: str = ""
+    db_user: str = ""
+    db_password: str = ""
+    _type: str = ""
 
     @property
     def port(self):
@@ -89,15 +86,15 @@ class DBDataSource:
 
     def __dict__(self):
         return {
-            'name': self.name,
-            'type': self.type,
-            'config': {
-                'db_server_ip': self.host,
-                'db_server_port': self.port,
-                'database_name': self.db_name,
-                'db_username': self.db_user,
-                'db_password': self.db_password
-            }
+            "name": self.name,
+            "type": self.type,
+            "config": {
+                "db_server_ip": self.host,
+                "db_server_port": self.port,
+                "database_name": self.db_name,
+                "db_username": self.db_user,
+                "db_password": self.db_password,
+            },
         }
 
     def to_yml(self):
@@ -121,53 +118,50 @@ class AurumWrapper(object):
     """
 
     def __init__(self):
-        self.aurum_src_home = Path(get_env('AURUM_SRC_HOME', Path.cwd()))
-        self.ddprofiler_home = self.aurum_src_home.joinpath('ddprofiler')
-        self.ddprofiler_run_sh = self.ddprofiler_home.joinpath('run.sh')
-        self.aurum_home = Path(get_env('AURUM_HOME', Path.home().joinpath('.aurum')))
+        self.aurum_src_home = Path(get_env("AURUM_SRC_HOME", Path.cwd()))
+        self.ddprofiler_home = self.aurum_src_home.joinpath("ddprofiler")
+        self.ddprofiler_run_sh = self.ddprofiler_home.joinpath("run.sh")
+        self.aurum_home = Path(get_env("AURUM_HOME", Path.home().joinpath(".aurum")))
         try:
             self.aurum_home.mkdir(parents=True)
         except FileExistsError:
             pass
 
-        self.sources_dir = self.aurum_home.joinpath('sources')
+        self.sources_dir = self.aurum_home.joinpath("sources")
         try:
             self.sources_dir.mkdir(parents=True)
         except FileExistsError:
             pass
 
-        self.models_dir = self.aurum_home.joinpath('models')
+        self.models_dir = self.aurum_home.joinpath("models")
         try:
             self.models_dir.mkdir(parents=True)
         except FileExistsError:
             pass
 
     def _make_ds_path(self, ds_name):
-        return self.sources_dir.joinpath(ds_name + '.yml')
+        return self.sources_dir.joinpath(ds_name + ".yml")
 
     def _make_model_path(self, model_name):
         return self.models_dir.joinpath(model_name)
 
     @property
     def sources(self):
-        return [f.name.replace('.yml', '') for f in self.sources_dir.iterdir()]
+        return [f.name.replace(".yml", "") for f in self.sources_dir.iterdir()]
 
     @property
     def models(self):
         return [f.name for f in self.models_dir.iterdir()]
 
-    def _make_csv_ds(self, name, fp, separator=','):
+    def _make_csv_ds(self, name, fp, separator=","):
         return {
-            'name': name,
-            'type': 'csv',
-            'config': {
-                'path': fp,
-                'separator': separator
-            }
+            "name": name,
+            "type": "csv",
+            "config": {"path": fp, "separator": separator},
         }
 
     def _store_ds(self, ds):
-        with open(self._make_ds_path(ds.name), 'w') as f:
+        with open(self._make_ds_path(ds.name), "w") as f:
             f.write(ds.to_yml())
 
 
@@ -180,7 +174,7 @@ class AurumCLI(AurumWrapper):
     def sources(self):
         return super().sources
 
-    def add_csv_data_source(self, name, path, sep=','):
+    def add_csv_data_source(self, name, path, sep=","):
         ds = CSVDataSource()
         ds.name = name
         ds.path = path
@@ -188,7 +182,9 @@ class AurumCLI(AurumWrapper):
 
         super()._store_ds(ds)
 
-    def add_db_data_source(self, name, db_type, host, port, db_name, username, password):
+    def add_db_data_source(
+        self, name, db_type, host, port, db_name, username, password
+    ):
         # TODO check if `db_type` is supported
 
         ds = DBDataSource()
@@ -205,45 +201,59 @@ class AurumCLI(AurumWrapper):
     def profile(self, data_source_name, schema_path=None):
         ds_fp = super()._make_ds_path(data_source_name)
         if not ds_fp.exists():
-            raise DataSourceNotConfigured(f"Data Source {data_source_name} not configured!")
-        
-        profile_cmd = ['bash', self.ddprofiler_run_sh, '--sources', ds_fp]
-        
+            raise DataSourceNotConfigured(
+                f"Data Source {data_source_name} not configured!"
+            )
+
+        profile_cmd = ["bash", self.ddprofiler_run_sh, "--sources", ds_fp]
+
         if schema_path is not None:
-            profile_cmd.extend(['--profile.schema', str(Path(schema_path).absolute())])
-        
+            profile_cmd.extend(["--profile.schema", str(Path(schema_path).absolute())])
+
         run_cmd(profile_cmd, cwd=self.ddprofiler_home)
-        print('finished profiling command'.center(70, '-'))
+        print("finished profiling command".center(70, "-"))
 
     def build_model(self, name):
         model_dir_path = self._make_model_path(name)
         try:
             model_dir_path.mkdir(parents=True)
         except FileExistsError:
-            warn(f'Model with the same name ({name}) already exists!')
+            warn(f"Model with the same name ({name}) already exists!")
 
-        run_cmd(['python', 'networkbuildercoordinator.py', '--opath', model_dir_path])
+        run_cmd(["python", "networkbuildercoordinator.py", "--opath", model_dir_path])
 
-    def export_model(self, model_name, to='neo4j', neo4j_host='localhost', neo4j_port=7687, neo4j_user='neo4j',
-                     neo4j_pass='n304j'):
-        supported_destionations = ['neo4j']
+    def export_model(
+        self,
+        model_name,
+        to="neo4j",
+        neo4j_host="localhost",
+        neo4j_port=7687,
+        neo4j_user="neo4j",
+        neo4j_pass="n304j",
+    ):
+        supported_destionations = ["neo4j"]
 
         if to not in supported_destionations:
-            raise NotImplementedError(f"Model destination not supported. Only {supported_destionations} are supported")
+            raise NotImplementedError(
+                f"Model destination not supported. Only {supported_destionations} are supported"
+            )
 
         model_dir_path = self._make_model_path(model_name)
 
         # Check if model exists
         # TODO refactor to separate method
         if not model_dir_path.exists():
-            available_models = '\n'.join(self.models)
+            available_models = "\n".join(self.models)
             raise ModelNotFoundError(
-                f"Model {model_name} not found!\nHere are the available ones:\n{available_models}")
+                f"Model {model_name} not found!\nHere are the available ones:\n{available_models}"
+            )
 
         # Hacky way. The underlying `fieldnetwork.py:deserialize_network` should be changed
-        model_path_str = model_dir_path.__str__() + '/'
-        if to == 'neo4j':
-            exporter = Neo4jExporter(host=neo4j_host, port=neo4j_port, user=neo4j_user, pwd=neo4j_pass)
+        model_path_str = model_dir_path.__str__() + "/"
+        if to == "neo4j":
+            exporter = Neo4jExporter(
+                host=neo4j_host, port=neo4j_port, user=neo4j_user, pwd=neo4j_pass
+            )
         exporter.export(model_path_str)
 
     def clear_store(self):
@@ -251,10 +261,11 @@ class AurumCLI(AurumWrapper):
         γφ
         """
         from elasticsearch import Elasticsearch
+
         # TODO extract AURUM_ES_HOST
         es = Elasticsearch()
-        es.indices.delete('profile')
-        es.indices.delete('text')
+        es.indices.delete("profile")
+        es.indices.delete("text")
 
     def show_source(self, soure_name):
         with open(self._make_ds_path(soure_name)) as f:
@@ -267,21 +278,25 @@ class AurumCLI(AurumWrapper):
         :param model_name:
         :return:
         """
-        api, reporting = init_system(self._make_model_path(model_name).__str__() + '/', create_reporting=True)
+        api, reporting = init_system(
+            self._make_model_path(model_name).__str__() + "/", create_reporting=True
+        )
         IPython.embed()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     aurum_cli = AurumCLI()
-    Fire({
-        'list-sources': aurum_cli.sources,
-        'add-csv': aurum_cli.add_csv_data_source,
-        'add-db': aurum_cli.add_db_data_source,
-        'show-source': aurum_cli.show_source,
-        'profile': aurum_cli.profile,
-        'build-model': aurum_cli.build_model,
-        'list-models': aurum_cli.models,
-        'export-model': aurum_cli.export_model,
-        'clear-store': aurum_cli.clear_store,
-        'explore-model': aurum_cli.explore_model
-    })
+    Fire(
+        {
+            "list-sources": aurum_cli.sources,
+            "add-csv": aurum_cli.add_csv_data_source,
+            "add-db": aurum_cli.add_db_data_source,
+            "show-source": aurum_cli.show_source,
+            "profile": aurum_cli.profile,
+            "build-model": aurum_cli.build_model,
+            "list-models": aurum_cli.models,
+            "export-model": aurum_cli.export_model,
+            "clear-store": aurum_cli.clear_store,
+            "explore-model": aurum_cli.explore_model,
+        }
+    )

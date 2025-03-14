@@ -48,14 +48,16 @@ class Report:
         # FIXME: Failing due to cardinality being attached as float to graph nodes ??
         # relations = graph.edges(keys=True)
         content_sim_relations_gen = self.__network.enumerate_relation(
-            Relation.CONTENT_SIM)
+            Relation.CONTENT_SIM
+        )
         # FIXME: counting twice (both directions), so /2. Once edges works, we
         # can modify it
         total_content_sim_relations = len([x for x in content_sim_relations_gen])
         self.__num_content_sim_relations = total_content_sim_relations
 
         schema_sim_relations_gen = self.__network.enumerate_relation(
-            Relation.SCHEMA_SIM)
+            Relation.SCHEMA_SIM
+        )
         total_schema_sim_relations = len([x for x in schema_sim_relations_gen])
         self.__num_schema_sim_relations = total_schema_sim_relations
 
@@ -76,7 +78,12 @@ class Report:
 
     def print_all_indexed_tables(self):
         tables_set = set()
-        for db_name, source_name, field_name, data_type in self.__network.iterate_values():
+        for (
+            db_name,
+            source_name,
+            field_name,
+            data_type,
+        ) in self.__network.iterate_values():
             tables_set.add(source_name)
         for el in tables_set:
             print(str(el))
@@ -84,7 +91,12 @@ class Report:
 
     def print_all_columns_of_type(self, type):
         col_set = set()
-        for db_name, source_name, field_name, data_type in self.__network.iterate_values():
+        for (
+            db_name,
+            source_name,
+            field_name,
+            data_type,
+        ) in self.__network.iterate_values():
             print(str(data_type))
             if data_type == type:
                 col_set.add((db_name, source_name, field_name))

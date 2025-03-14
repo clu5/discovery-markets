@@ -46,7 +46,7 @@ class FieldNetwork:
     def iterate_ids_text(self):
         for k, v in self.__id_names.items():
             (db_name, source_name, field_name, data_type) = v
-            if data_type == 'T':
+            if data_type == "T":
                 yield k
 
     def iterate_values(self) -> (str, str, str, str):
@@ -68,17 +68,23 @@ class FieldNetwork:
         return info
 
     def get_hits_from_info(self, info):
-        hits = [Hit(nid, db_name, s_name, f_name, 0) for nid, db_name, s_name, f_name in info]
+        hits = [
+            Hit(nid, db_name, s_name, f_name, 0)
+            for nid, db_name, s_name, f_name in info
+        ]
         return hits
 
     def get_hits_from_table(self, table) -> [Hit]:
         nids = self.get_fields_of_source(table)
         info = self.get_info_for(nids)
-        hits = [Hit(nid, db_name, s_name, f_name, 0) for nid, db_name, s_name, f_name in info]
+        hits = [
+            Hit(nid, db_name, s_name, f_name, 0)
+            for nid, db_name, s_name, f_name in info
+        ]
         return hits
 
     def get_cardinality_of(self, nid):
-        card = self.__G.nodes[nid]['cardinality']
+        card = self.__G.nodes[nid]["cardinality"]
         if card is None:
             return 0  # no cardinality is like card 0
         return card
@@ -107,7 +113,15 @@ class FieldNetwork:
         :return:
         """
         print("Building schema relation...")
-        for (nid, db_name, sn_name, fn_name, total_values, unique_values, data_type) in fields:
+        for (
+            nid,
+            db_name,
+            sn_name,
+            fn_name,
+            total_values,
+            unique_values,
+            data_type,
+        ) in fields:
             self.__id_names[nid] = (db_name, sn_name, fn_name, data_type)
             self.__source_ids[sn_name].append(nid)
             cardinality_ratio = None
@@ -148,7 +162,7 @@ class FieldNetwork:
         :param score: the numerical value of the score
         :return:
         """
-        score = {'score': score}
+        score = {"score": score}
         self.__G.add_edge(node_src, node_target, key=relation, **score)
 
     def fields_degree(self, topk):
@@ -223,7 +237,7 @@ class FieldNetwork:
         neighbours = self.__G[nid]
         for k, v in neighbours.items():
             if relation in v:
-                score = v[relation]['score']
+                score = v[relation]["score"]
                 (db_name, source_name, field_name, data_type) = self.__id_names[k]
                 data.append(Hit(k, db_name, source_name, field_name, score))
         op = self.get_op_from_relation(relation)
@@ -237,7 +251,7 @@ class FieldNetwork:
             nid = hit
         nid = str(nid)
         data = []
-        score = 1.0 # TODO: return more meaningful score results
+        score = 1.0  # TODO: return more meaningful score results
         for hit in md_neighbors:
             k = hit.target if hit.target != nid else hit.source
             (db_name, source_name, field_name, data_type) = self.__id_names[k]
@@ -285,12 +299,22 @@ class FieldNetwork:
                 else:
                     already_visited.append(c)  # add candidate to set of already visited
 
-                next_level_candidates = [x for x in self.neighbors_id(c, relation)]  # get next set of candidates
+                next_level_candidates = [
+                    x for x in self.neighbors_id(c, relation)
+                ]  # get next set of candidates
 
                 if len(next_level_candidates) == 0:
                     continue
-                next_max_hops = local_max_hops - 1  # reduce one level depth and go ahead
-                success = deep_explore(next_level_candidates, target_group, already_visited, path, next_max_hops)
+                next_max_hops = (
+                    local_max_hops - 1
+                )  # reduce one level depth and go ahead
+                success = deep_explore(
+                    next_level_candidates,
+                    target_group,
+                    already_visited,
+                    path,
+                    next_max_hops,
+                )
                 if success:
                     path.insert(0, c)
                     return True
@@ -312,13 +336,17 @@ class FieldNetwork:
         else:
             return DRS([], Operation(OP.NONE))
 
-    def find_path_table(self, source: str, target: str, relation, api, max_hops=3, lean_search=False):
+    def find_path_table(
+        self, source: str, target: str, relation, api, max_hops=3, lean_search=False
+    ):
 
         def assemble_table_path_provenance(o_drs, paths, relation):
 
             for path in paths:
                 src, src_sibling = path[0]
-                assert (src_sibling is None)  # sibling of source should be None, as source is an origin
+                assert (
+                    src_sibling is None
+                )  # sibling of source should be None, as source is an origin
                 tgt, tgt_sibling = path[-1]
                 origin = DRS([src], Operation(OP.ORIGIN))
                 o_drs.absorb_provenance(origin)
@@ -332,8 +360,12 @@ class FieldNetwork:
                     prev_c = c
                 sink = DRS([tgt_sibling], Operation(OP.PKFK, params=[prev_c]))
 
-                #The join path at the target has None sibling
-                if tgt is not None and tgt_sibling is not None and tgt.nid != tgt_sibling.nid:
+                # The join path at the target has None sibling
+                if (
+                    tgt is not None
+                    and tgt_sibling is not None
+                    and tgt.nid != tgt_sibling.nid
+                ):
                     o_drs = o_drs.absorb_provenance(sink)
                     linker = DRS([tgt], Operation(OP.TABLE, params=[tgt_sibling]))
                     o_drs.absorb(linker)
@@ -343,7 +375,7 @@ class FieldNetwork:
 
         def check_membership(c, paths):
             for p in paths:
-                for (s, sibling) in p:
+                for s, sibling in p:
                     if c.source_name == s.source_name:
                         return True
             return False
@@ -362,7 +394,11 @@ class FieldNetwork:
             direct_neighbors = self.neighbors_id(hit, relation)
 
             # Rewriting results - filtering out results that are in the same table as the input. Rewriting prov
-            direct_neighbors_list = [neigh for neigh in direct_neighbors if neigh.source_name != hit.source_name]
+            direct_neighbors_list = [
+                neigh
+                for neigh in direct_neighbors
+                if neigh.source_name != hit.source_name
+            ]
             op = self.get_op_from_relation(relation)
             direct_neighbors = DRS(direct_neighbors_list, Operation(op, params=[hit]))
 
@@ -382,9 +418,11 @@ class FieldNetwork:
             target_nid_set = set([x.nid for x in targets])
 
             # Check if sources have reached targets
-            for (s, sibling) in sources:
-                if s.nid in target_nid_set:  # faster than using the generic __eq__ of Hit
-                #if s in targets:
+            for s, sibling in sources:
+                if (
+                    s.nid in target_nid_set
+                ):  # faster than using the generic __eq__ of Hit
+                    # if s in targets:
                     # Append successful paths to found_paths
                     # T1.A join T2.B, and T2.C may join with other tables T3.D
                     # get_table_neighbors returns next_candidates (s, sibling) (C,B)
@@ -402,8 +440,10 @@ class FieldNetwork:
                 return False  # not found path
 
             # Get next set of candidates and keep exploration
-            for (s, sibling) in sources:
-                next_candidates = get_table_neighbors(s, relation, paths)  # updated paths to test membership
+            for s, sibling in sources:
+                next_candidates = get_table_neighbors(
+                    s, relation, paths
+                )  # updated paths to test membership
                 # recursive on new candidates, one fewer hop and updated paths
                 if len(next_candidates) == 0:
                     continue
@@ -420,7 +460,9 @@ class FieldNetwork:
         trg_drs = api.make_drs(target)
 
         found_paths = []
-        candidates = [(x, None) for x in src_drs]  # tuple carrying candidate and same-table attribute
+        candidates = [
+            (x, None) for x in src_drs
+        ]  # tuple carrying candidate and same-table attribute
 
         paths = [[]]  # to carry partial paths
 
@@ -432,38 +474,40 @@ class FieldNetwork:
         o_drs = assemble_table_path_provenance(o_drs, found_paths, relation)
 
         return o_drs
-    
+
 
 def serialize_network_to_csv(network, path):
     nodes = set()
     G = network._get_underlying_repr_graph()
-    with open(path + "edges.csv", 'w') as f:
+    with open(path + "edges.csv", "w") as f:
         for src, tgt in G.edges_iter(data=False):
             s = str(src) + "," + str(tgt) + "," + "1\n"
             nodes.add(src)
             nodes.add(tgt)
             f.write(s)
-    with open(path + "nodes.csv", 'w') as f:
+    with open(path + "nodes.csv", "w") as f:
         for n in nodes:
             s = str(n) + "," + "node\n"
             f.write(s)
 
+
 def _write_gpickle(graph, path):
-    '''
-    networkx.*_gpickle operations were deprecated from 2.x -> 3.0, so we must manually 
+    """
+    networkx.*_gpickle operations were deprecated from 2.x -> 3.0, so we must manually
     pickle the graph object.
-    '''
-    with open(path, 'wb') as f:
+    """
+    with open(path, "wb") as f:
         pickle.dump(graph, f, protocol=pickle.HIGHEST_PROTOCOL)
-    
+
 
 def _read_gpickle(path):
-    '''
-    networkx.*_gpickle operations were deprecated from 2.x -> 3.0, so we must manually 
+    """
+    networkx.*_gpickle operations were deprecated from 2.x -> 3.0, so we must manually
     unpickle the graph object.
-    '''
-    with open(path, 'rb') as f:
+    """
+    with open(path, "rb") as f:
         return pickle.load(f)
+
 
 def serialize_network(network, path):
     """
@@ -477,7 +521,7 @@ def serialize_network(network, path):
     table_to_ids = network._get_underlying_repr_table_to_ids()
 
     # Make sure we create directory if this does not exist
-    path = path + '/'  # force separator
+    path = path + "/"  # force separator
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
     _write_gpickle(G, path + "graph.pickle")
