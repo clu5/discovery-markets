@@ -31,7 +31,7 @@ RUN echo "set history=1000" >> /etc/vim/vimrc \
 
 # Setup bash/git completions
 RUN echo "source /usr/share/bash-completion/bash_completion" >> /root/.bashrc \
-    && echo "source /usr/share/bash-completion/completions/git" >> /root/.bashrc \
+    && echo "source /usr/share/bash-completion/completions/git" >> /root/.bashrc
 
 
 # Configure Elasticsearch
