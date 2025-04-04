@@ -5,19 +5,19 @@ WORKDIR /app
 
 # Install Java, Gradle, Git, Vim, and other dependencies
 RUN apt-get update && apt-get install -y \
+    bash-completion \
     default-jdk \
     default-jre \
     curl \
     gradle \
     git \
     vim \
-    wget \ 
+    wget \
     gnupg \
     && wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | gpg --dearmor > /usr/share/keyrings/elasticsearch-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list \
     && apt-get update && apt-get install -y elasticsearch \
     && rm -rf /var/lib/apt/lists/*
-
 
 # Change the terminal prompt color
 RUN echo 'PS1="\[\e[36m\]\u@\h:\w\$\[\e[m\] "' >> /root/.bashrc
@@ -28,6 +28,10 @@ RUN echo "set editing-mode vi" >> /etc/inputrc
 # Configure Vim history and undofile
 RUN echo "set history=1000" >> /etc/vim/vimrc \
     && echo "set undofile" >> /etc/vim/vimrc
+
+# Setup bash/git completions
+RUN echo "source /usr/share/bash-completion/bash_completion" >> /root/.bashrc \
+    && echo "source /usr/share/bash-completion/completions/git" >> /root/.bashrc \
 
 
 # Configure Elasticsearch
@@ -59,7 +63,10 @@ RUN pip install jupyter numpy scipy networkx pandas matplotlib black tqdm elasti
 # Configure Black formatter
 RUN echo "[tool.black]\nline-length = 120" > pyproject.toml
 
-# Make port available to the world outside this container 
+# Initialize pre-commit formatting
+RUN pre-commit install
+
+# Make port available to the world outside this container
 EXPOSE 9200
 EXPOSE 9300
 
