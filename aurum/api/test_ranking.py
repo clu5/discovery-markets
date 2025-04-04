@@ -20,7 +20,7 @@ class TestRanking(unittest.TestCase):
 
         nodes = self.network.fields_degree(3)
 
-        #self.network._visualize_graph()
+        # self.network._visualize_graph()
 
         nids = [x for x, y in nodes]
 
@@ -29,11 +29,11 @@ class TestRanking(unittest.TestCase):
 
         drs_info = self.api.drs_from_hits(hits)
 
-        #drs_info.visualize_provenance()
+        # drs_info.visualize_provenance()
 
         res = self.api.similar_schema_name_to(drs_info)
 
-        #res.visualize_provenance(labels=True)
+        # res.visualize_provenance(labels=True)
 
         res = res.rank_coverage()
 
@@ -42,12 +42,12 @@ class TestRanking(unittest.TestCase):
         self.assertTrue(True)
 
     def test_ranking_certainty_chem(self):
-        path = '../models/chemical/'
+        path = "../models/chemical/"
         network = deserialize_network(path)
         api = API(network)
         api.init_store()
 
-        table = 'activities'
+        table = "activities"
         table_drs = api.drs_from_table(table)
 
         sim_tables = api.similar_content_to(table_drs)

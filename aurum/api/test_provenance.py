@@ -9,7 +9,7 @@ class TestProvenance(unittest.TestCase):
     # create store handler
     store_client = StoreHandler()
     # read graph
-    path = '../test/test4/'
+    path = "../test/test4/"
     network = deserialize_network(path)
     api = API(network)
     api.init_store()
@@ -35,7 +35,7 @@ class TestProvenance(unittest.TestCase):
     def test_content_sim_provenance(self):
         print(self._testMethodName)
 
-        table = 'Buildings.csv'
+        table = "Buildings.csv"
         res = self.api.similar_content_to_table(table)
 
         print(res.get_provenance().prov_graph().nodes())
@@ -75,8 +75,8 @@ class TestProvenance(unittest.TestCase):
     def test_tc_table_mode_provenance(self):
         print(self._testMethodName)
 
-        field1 = ('dwhsmall', 'All_olap2_uentity_desc_uses.csv', 'Entity Owner')
-        field2 = ('dwhsmall', 'All_olap_entity_desc_uses.csv', 'Entity Owner')
+        field1 = ("dwhsmall", "All_olap2_uentity_desc_uses.csv", "Entity Owner")
+        field2 = ("dwhsmall", "All_olap_entity_desc_uses.csv", "Entity Owner")
 
         drs1 = self.api.drs_from_raw_field(field1)
         drs2 = self.api.drs_from_raw_field(field2)

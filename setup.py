@@ -9,8 +9,8 @@ setup(
         # Example: 'requests==2.25.1',
     ],
     entry_points={
-        'console_scripts': [
-            'discovery_markets=main:main',
+        "console_scripts": [
+            "discovery_markets=main:main",
         ],
     },
 )

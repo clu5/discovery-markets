@@ -17,10 +17,12 @@ import numpy as np
 
 from collections import defaultdict
 
-rbp = RandomBinaryProjections('default', 30)
+rbp = RandomBinaryProjections("default", 30)
 
 
-def create_sim_graph_text(nid_gen, network, text_engine, tfidf, relation, tfidf_is_dense=False):
+def create_sim_graph_text(
+    nid_gen, network, text_engine, tfidf, relation, tfidf_is_dense=False
+):
     st = time.time()
     row_idx = 0
     for nid in nid_gen:
@@ -37,7 +39,7 @@ def create_sim_graph_text(nid_gen, network, text_engine, tfidf, relation, tfidf_
             for n in N:
                 (data, key, value) = n
                 if nid != key:
-                    #print("tsim: {0} <-> {1}".format(nid, key))
+                    # print("tsim: {0} <-> {1}".format(nid, key))
                     network.add_relation(nid, key, relation, value)
     et = time.time()
     print("Create graph schema: {0}".format(str(et - st)))
@@ -46,9 +48,9 @@ def create_sim_graph_text(nid_gen, network, text_engine, tfidf, relation, tfidf_
 def index_in_text_engine(nid_gen, tfidf, lsh_projections, tfidf_is_dense=False):
     num_features = tfidf.shape[1]
     print("TF-IDF shape: " + str(tfidf.shape))
-    text_engine = Engine(num_features,
-                         lshashes=[lsh_projections],
-                         distance=CosineDistance())
+    text_engine = Engine(
+        num_features, lshashes=[lsh_projections], distance=CosineDistance()
+    )
 
     st = time.time()
     row_idx = 0
@@ -78,14 +80,21 @@ class LSHRandomProjectionsIndex:
 
     def __init__(self, num_features, projection_count=30):
         self.num_features = num_features
-        #self.rbp = RandomDiscretizedProjections('default', projection_count, bin_width=100)
-        self.rbp = RandomBinaryProjections('default', projection_count)
-        #self.rbp = RandomBinaryProjectionTree('default', projection_count, 1)
-        self.text_engine = Engine(num_features, lshashes=[self.rbp], distance=CosineDistance())
+        # self.rbp = RandomDiscretizedProjections('default', projection_count, bin_width=100)
+        self.rbp = RandomBinaryProjections("default", projection_count)
+        # self.rbp = RandomBinaryProjectionTree('default', projection_count, 1)
+        self.text_engine = Engine(
+            num_features, lshashes=[self.rbp], distance=CosineDistance()
+        )
 
     def index(self, vector, key):
         if len(vector) != self.num_features:
-            print("ERROR received vector.dim: " + str(len(vector)) + " on engine.dim: " + str(self.num_features))
+            print(
+                "ERROR received vector.dim: "
+                + str(len(vector))
+                + " on engine.dim: "
+                + str(self.num_features)
+            )
             raise Exception
         self.text_engine.store_vector(vector, key)
 
@@ -101,7 +110,7 @@ def build_schema_sim_relation(network):
 
     st = time.time()
     docs = []
-    for (_, _, field_name, _) in network.iterate_values():
+    for _, _, field_name, _ in network.iterate_values():
         docs.append(field_name)
 
     tfidf = da.get_tfidf_docs(docs)
@@ -149,7 +158,7 @@ def build_schema_sim_relation(network):
 
 def build_schema_sim_relation_lsa(network, fields):
     docs = []
-    for (nid, sn, fn, _, _) in fields:
+    for nid, sn, fn, _, _ in fields:
         docs.append(fn)
 
     tfidf = da.get_tfidf_docs(docs)
@@ -159,9 +168,11 @@ def build_schema_sim_relation_lsa(network, fields):
     print("tfidf shape after LSA: " + str(tfidf.shape))
 
     text_engine = index_in_text_engine(
-        fields, tfidf, rbp, tfidf_is_dense=True)  # rbp the global variable
-    create_sim_graph_text(network, text_engine, fields,
-                          tfidf, Relation.SCHEMA_SIM, tfidf_is_dense=True)
+        fields, tfidf, rbp, tfidf_is_dense=True
+    )  # rbp the global variable
+    create_sim_graph_text(
+        network, text_engine, fields, tfidf, Relation.SCHEMA_SIM, tfidf_is_dense=True
+    )
 
 
 def build_entity_sim_relation(network, fields, entities):
@@ -171,12 +182,14 @@ def build_entity_sim_relation(network, fields, entities):
             docs.append(e)
     print(str(docs))
 
-    if len(docs) > 0:  # If documents are empty, then skip this step; not entity similarity will be found
+    if (
+        len(docs) > 0
+    ):  # If documents are empty, then skip this step; not entity similarity will be found
         tfidf = da.get_tfidf_docs(docs)
         text_engine = index_in_text_engine(
-            fields, tfidf, rbp)  # rbp the global variable
-        create_sim_graph_text(network, text_engine, fields,
-                              tfidf, Relation.ENTITY_SIM)
+            fields, tfidf, rbp
+        )  # rbp the global variable
+        create_sim_graph_text(network, text_engine, fields, tfidf, Relation.ENTITY_SIM)
 
 
 def build_content_sim_relation_text_lsa(network, signatures):
@@ -187,7 +200,7 @@ def build_content_sim_relation_text_lsa(network, signatures):
 
     docs = []
     for nid, e in signatures:
-        docs.append(' '.join(e))
+        docs.append(" ".join(e))
 
     # this may become redundant if we exploit the store characteristics
     tfidf = da.get_tfidf_docs(docs)
@@ -198,12 +211,16 @@ def build_content_sim_relation_text_lsa(network, signatures):
     et = time.time()
     print("TF-IDF shape after LSA: " + str(tfidf.shape))
     print("Time to compute LSA: {0}".format(str(et - st)))
-    lsh_projections = RandomBinaryProjections('default', 10000)
-    #lsh_projections = RandomDiscretizedProjections('rnddiscretized', 1000, 2)
+    lsh_projections = RandomBinaryProjections("default", 10000)
+    # lsh_projections = RandomDiscretizedProjections('rnddiscretized', 1000, 2)
     nid_gen = get_nid_gen(signatures)  # to preserve the order nid -> signature
-    text_engine = index_in_text_engine(nid_gen, tfidf, lsh_projections, tfidf_is_dense=True)
+    text_engine = index_in_text_engine(
+        nid_gen, tfidf, lsh_projections, tfidf_is_dense=True
+    )
     nid_gen = get_nid_gen(signatures)  # to preserve the order nid -> signature
-    create_sim_graph_text(nid_gen, network, text_engine, tfidf, Relation.CONTENT_SIM, tfidf_is_dense=True)
+    create_sim_graph_text(
+        nid_gen, network, text_engine, tfidf, Relation.CONTENT_SIM, tfidf_is_dense=True
+    )
 
 
 def build_content_sim_relation_text(network, signatures):
@@ -214,12 +231,12 @@ def build_content_sim_relation_text(network, signatures):
 
     docs = []
     for nid, e in signatures:
-        docs.append(' '.join(e))
+        docs.append(" ".join(e))
 
     # this may become redundant if we exploit the store characteristics
     tfidf = da.get_tfidf_docs(docs)
     # rbp = RandomBinaryProjections('default', 1000)
-    lsh_projections = RandomDiscretizedProjections('rnddiscretized', 1000, 2)
+    lsh_projections = RandomDiscretizedProjections("rnddiscretized", 1000, 2)
     nid_gen = get_nid_gen(signatures)
     text_engine = index_in_text_engine(nid_gen, tfidf, lsh_projections)
     nid_gen = get_nid_gen(signatures)
@@ -313,7 +330,9 @@ def build_content_sim_relation_num_overlap_distr_indexed(network, id_sig):
                 active_element_values = active_set[active_element_nid]
                 if current_nid != active_element_nid:
                     if current_nid in active_element_values.keys():
-                        open_event_value = active_element_values[current_nid][0]  # 1 is event_type
+                        open_event_value = active_element_values[current_nid][
+                            0
+                        ]  # 1 is event_type
                         overlap = event_value - open_event_value
                         active_element_values[current_nid] = (overlap, Event.FINISHED)
                 elif current_nid == active_element_nid:
@@ -323,14 +342,19 @@ def build_content_sim_relation_num_overlap_distr_indexed(network, id_sig):
                         ae_value, ae_type = ae_event
                         if ae_type == Event.FINISHED:
                             closing_event_start_time = start_events[current_nid]
-                            overlap = compute_overlap(closing_event_start_time, ae_value)
+                            overlap = compute_overlap(
+                                closing_event_start_time, ae_value
+                            )
                             check_overlap_maybe_connect(overlap)
                         elif ae_type == Event.OPEN:
                             overlap = compute_overlap(event_value, ae_value)
                             # store value in the active element
-                            active_set[active_element_nid][ae_nid] = (overlap, Event.FINISHED)
+                            active_set[active_element_nid][ae_nid] = (
+                                overlap,
+                                Event.FINISHED,
+                            )
                         # remove entry from values
-                        #del active_element_values[current_nid]
+                        # del active_element_values[current_nid]
                     # remove entry from active set
                     del active_set[current_nid]
 
@@ -368,18 +392,20 @@ def build_content_sim_relation_num_overlap_distr(network, id_sig):
         min = c_min_v
         extreme_right = c_median + c_iqr
         max = c_max_v
-        #print(str(extreme_left) + " - " + str(domain) + " - " + str(extreme_right))
+        # print(str(extreme_left) + " - " + str(domain) + " - " + str(extreme_right))
         stats.append((min, extreme_left, extreme_right, max))
 
     zipped_and_sorted = sorted(zip(domains, fields, stats), reverse=True)
-    candidate_entries = [(y, x, z[0], z[1], z[2], z[3]) for (x, y, z) in zipped_and_sorted]
+    candidate_entries = [
+        (y, x, z[0], z[1], z[2], z[3]) for (x, y, z) in zipped_and_sorted
+    ]
 
     single_points = []
 
     for ref in candidate_entries:
         ref_nid, ref_domain, ref_x_min, ref_x_left, ref_x_right, ref_x_max = ref
 
-        if ref_nid == '2314808454':
+        if ref_nid == "2314808454":
             debug = True
 
         if ref_domain == 0:
@@ -388,16 +414,23 @@ def build_content_sim_relation_num_overlap_distr(network, id_sig):
         info1 = network.get_info_for([ref_nid])
 
         (nid, db_name, source_name, field_name) = info1[0]
-        #print("")
-        #print("")
-        #print("Checking: " + source_name + " - " + field_name)
-        #print("")
-        #print("")
+        # print("")
+        # print("")
+        # print("Checking: " + source_name + " - " + field_name)
+        # print("")
+        # print("")
 
         for entry in candidate_entries:
-            candidate_nid, candidate_domain, candidate_x_min, candidate_x_left, candidate_x_right, candidate_x_max = entry
+            (
+                candidate_nid,
+                candidate_domain,
+                candidate_x_min,
+                candidate_x_left,
+                candidate_x_right,
+                candidate_x_max,
+            ) = entry
 
-            if candidate_nid == '1504465753':
+            if candidate_nid == "1504465753":
                 debug = True
 
             if candidate_nid == ref_nid:
@@ -412,14 +445,21 @@ def build_content_sim_relation_num_overlap_distr(network, id_sig):
                 info2 = network.get_info_for([candidate_nid])
                 (_, _, sn1, fn1) = info1[0]
                 (_, _, sn2, fn2) = info2[0]
-                if isinf(float(ref_x_min)) or isinf(float(ref_x_max)) or isinf(float(candidate_x_max)) or isinf(float(candidate_x_min)):
+                if (
+                    isinf(float(ref_x_min))
+                    or isinf(float(ref_x_max))
+                    or isinf(float(candidate_x_max))
+                    or isinf(float(candidate_x_min))
+                ):
                     continue
                 if candidate_x_min >= ref_x_min and candidate_x_max <= ref_x_max:
                     # inclusion relation
                     if candidate_x_min >= 0:
 
                         # min overlap for precision
-                        actual_overlap = compute_overlap(ref_x_left, ref_x_right, candidate_x_left, candidate_x_right)
+                        actual_overlap = compute_overlap(
+                            ref_x_left, ref_x_right, candidate_x_left, candidate_x_right
+                        )
                         if actual_overlap >= 0.3:
                             connect(candidate_nid, ref_nid, 1, inddep=True)
                     """
@@ -445,10 +485,12 @@ def build_content_sim_relation_num_overlap_distr(network, id_sig):
                             connect(candidate_nid, ref_nid, 1, inddep=True)
                     """
 
-            #if float(candidate_domain / ref_domain) <= overlap:
+            # if float(candidate_domain / ref_domain) <= overlap:
             #    # There won't be a content sim relation -> not even the entire domain would overlap more than the th.
             #    break
-            actual_overlap = compute_overlap(ref_x_left, ref_x_right, candidate_x_left, candidate_x_right)
+            actual_overlap = compute_overlap(
+                ref_x_left, ref_x_right, candidate_x_left, candidate_x_right
+            )
             if actual_overlap >= overlap:
                 connect(candidate_nid, ref_nid, actual_overlap)
 
@@ -483,7 +525,7 @@ def build_content_sim_relation_num_overlap_distr(network, id_sig):
     fields = []
     medians = []
 
-    for (nid, domain, x_min, x_left, x_right, x_max) in single_points:
+    for nid, domain, x_min, x_left, x_right, x_max in single_points:
         median = x_right - float(x_right / 2)
         fields.append(nid)
         medians.append(median)
@@ -499,7 +541,7 @@ def build_content_sim_relation_num_overlap_distr(network, id_sig):
     db_median = DBSCAN(eps=0.1, min_samples=2).fit(x_median)
     labels_median = db_median.labels_
     n_clusters = len(set(labels_median)) - (1 if -1 in labels_median else 0)
-    #print("#clusters: " + str(n_clusters))
+    # print("#clusters: " + str(n_clusters))
 
     clusters_median = defaultdict(list)
     for i in range(len(labels_median)):
@@ -508,12 +550,12 @@ def build_content_sim_relation_num_overlap_distr(network, id_sig):
     for k, v in clusters_median.items():
         if k == -1:
             continue
-        #print("Cluster: " + str(k))
+        # print("Cluster: " + str(k))
         for el in v:
             nid = fields[el]
             info = network.get_info_for([nid])
             (nid, db_name, source_name, field_name) = info[0]
-            #print(source_name + " - " + field_name + " median: " + str(medians[el]))
+            # print(source_name + " - " + field_name + " median: " + str(medians[el]))
             for el2 in v:
                 if el != el2:
                     nid1 = fields[el]
@@ -537,8 +579,8 @@ def build_content_sim_relation_num_double_clustering(network, id_sig):
 
     print("Total samples: " + str(total))
 
-    #median_vector = median_vector.reshape(-1, 1)
-    #iqr_vector = iqr_vector.reshape(-1, 1)
+    # median_vector = median_vector.reshape(-1, 1)
+    # iqr_vector = iqr_vector.reshape(-1, 1)
 
     x_median = np.asarray(median_vector)
     x_iqr = np.asarray(iqr_vector)
@@ -572,7 +614,9 @@ def build_content_sim_relation_num_double_clustering(network, id_sig):
             nid = fields[el]
             info = network.get_info_for([nid])
             (nid, db_name, source_name, field_name) = info[0]
-            print(source_name + " - " + field_name + " median: " + str(median_vector[el]))
+            print(
+                source_name + " - " + field_name + " median: " + str(median_vector[el])
+            )
         print("")
         print("")
 
@@ -635,23 +679,23 @@ def build_pkfk_relation(network):
     total_pkfk_relations = 0
     for n in network.iterate_ids():
         n_card = network.get_cardinality_of(n)
-        if n == '2314808454' or n == '1504465753':
+        if n == "2314808454" or n == "1504465753":
             debug = True
         if n_card > 0.7:  # Early check if this is a candidate
             neighborhood = get_neighborhood(n)
             for ne in neighborhood:
                 if ne is not n:
-                    if ne.nid == '1504465753' or ne.nid == '2314808454':
+                    if ne.nid == "1504465753" or ne.nid == "2314808454":
                         debug = True
                     ne_card = network.get_cardinality_of(ne.nid)
                     if n_card > ne_card:
                         highest_card = n_card
                     else:
                         highest_card = ne_card
-                    #if ne_card < 0.5:
+                    # if ne_card < 0.5:
                     network.add_relation(n, ne.nid, Relation.PKFK, highest_card)
                     total_pkfk_relations += 1
-                    #print(str(n) + " -> " + str(ne))
+                    # print(str(n) + " -> " + str(ne))
     print("Total number PKFK: {0}".format(str(total_pkfk_relations)))
 
 

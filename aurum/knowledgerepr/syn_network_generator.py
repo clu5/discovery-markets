@@ -3,7 +3,9 @@ from knowledgerepr.fieldnetwork import serialize_network
 from api.apiutils import Relation
 
 
-def generate_network_with(num_nodes=10, num_nodes_per_table=2, num_schema_sim=5, num_content_sim=5, num_pkfk=2):
+def generate_network_with(
+    num_nodes=10, num_nodes_per_table=2, num_schema_sim=5, num_content_sim=5, num_pkfk=2
+):
 
     def node_generator():
         for i in range(num_nodes):
@@ -39,7 +41,6 @@ def generate_network_with(num_nodes=10, num_nodes_per_table=2, num_schema_sim=5,
             for x in gen:
                 yield x
 
-
     # Skeleton, columns and tables
     fn = FieldNetwork()
     node_g = node_generator()
@@ -48,7 +49,7 @@ def generate_network_with(num_nodes=10, num_nodes_per_table=2, num_schema_sim=5,
     # num schema sim
     gen_schema_sim = gen_pairs_relation(0, num_schema_sim)
     for src, trg in gen_schema_sim:
-        #print(str(src) + " - " + str(trg))
+        # print(str(src) + " - " + str(trg))
         fn.add_relation(src, trg, Relation.SCHEMA_SIM, 0.2)
 
     # num content sim
@@ -63,19 +64,30 @@ def generate_network_with(num_nodes=10, num_nodes_per_table=2, num_schema_sim=5,
 
     return fn
 
+
 if __name__ == "__main__":
     print("Synthetic Network Generator")
 
-    ex = generate_network_with(num_nodes=1000, num_nodes_per_table=10, num_schema_sim=2000, num_content_sim=1500,
-                               num_pkfk=500)
+    ex = generate_network_with(
+        num_nodes=1000,
+        num_nodes_per_table=10,
+        num_schema_sim=2000,
+        num_content_sim=1500,
+        num_pkfk=500,
+    )
 
     path = "/Users/ra-mit/development/discovery_proto/syn/test1/"
     serialize_network(ex, path)
 
-    ex = generate_network_with(num_nodes=10000, num_nodes_per_table=10, num_schema_sim=20000, num_content_sim=15000,
-                               num_pkfk=5000)
+    ex = generate_network_with(
+        num_nodes=10000,
+        num_nodes_per_table=10,
+        num_schema_sim=20000,
+        num_content_sim=15000,
+        num_pkfk=5000,
+    )
 
     path = "/Users/ra-mit/development/discovery_proto/syn/test2/"
     serialize_network(ex, path)
 
-    #ex._visualize_graph()
+    # ex._visualize_graph()

@@ -13,7 +13,7 @@ clib.serialize_graph_to_disk.restype = None
 
 
 def deserialize_graph(path_str):
-    path = c_char_p(path_str.encode('utf-8'))
+    path = c_char_p(path_str.encode("utf-8"))
     clib.deserialize_graph(path)
 
 
@@ -38,7 +38,7 @@ def neighbor_query(src_id, type):
     results = [array[idx] for idx in range(size)]
     clib.release_array(array)
     e = time.time()
-    print(str(e-s) + "s")
+    print(str(e - s) + "s")
     return results
 
 
@@ -55,5 +55,5 @@ def path_query(src_id, tgt_id, type, max_hops):
     clib.release_array(output)
     e = time.time()
     print("total paths: " + str(total_paths))
-    print(str(e-s) + "s")
+    print(str(e - s) + "s")
     return results

@@ -1,9 +1,8 @@
 from collections import namedtuple
 from enum import Enum
 
-BaseMDHit = namedtuple(
-    'MDHit', 'id, author, md_class, text, source, target, relation')
-BaseMDComment = namedtuple('MDComment', 'id, author, text, ref_id')
+BaseMDHit = namedtuple("MDHit", "id, author, md_class, text, source, target, relation")
+BaseMDComment = namedtuple("MDComment", "id, author, text, ref_id")
 
 
 class MDClass(Enum):
@@ -37,10 +36,10 @@ class MDHit(BaseMDHit):
         if self.target is None:
             relation = "{}".format(self.source)
         else:
-            relation = "{} {} {}".format(
-                self.source, self.relation, self.target)
+            relation = "{} {} {}".format(self.source, self.relation, self.target)
         return "ID: {0:20} RELATION: {1:30} TEXT: {2}".format(
-            self.id, relation, self.text)
+            self.id, relation, self.text
+        )
 
     def __str__(self):
         return self.__repr__()
@@ -60,13 +59,14 @@ class MDComment(BaseMDComment):
 
     def __repr__(self):
         return "ID: {0:20} REF_ID: {1:32} TEXT: {2}".format(
-            self.id, self.ref_id, self.text)
+            self.id, self.ref_id, self.text
+        )
 
     def __str__(self):
         return self.__repr__()
 
 
-class MRS():
+class MRS:
 
     def __init__(self, data):
         self._data = data

@@ -16,9 +16,9 @@ def print_md(string):
     display(Markdown(string))
 
 
-#@DeprecationWarning
+# @DeprecationWarning
 def __init_system(path_to_serialized_model, create_reporting=True):
-    print_md('Loading: *' + str(path_to_serialized_model) + "*")
+    print_md("Loading: *" + str(path_to_serialized_model) + "*")
     sl = time.time()
     network = fieldnetwork.deserialize_network(path_to_serialized_model)
     api = oldAPI(network)
@@ -32,7 +32,7 @@ def __init_system(path_to_serialized_model, create_reporting=True):
 
 
 def init_system(path_to_serialized_model, create_reporting=False):
-    print_md('Loading: *' + str(path_to_serialized_model) + "*")
+    print_md("Loading: *" + str(path_to_serialized_model) + "*")
     sl = time.time()
     network = fieldnetwork.deserialize_network(path_to_serialized_model)
     store_client = StoreHandler()
@@ -49,7 +49,7 @@ def init_system(path_to_serialized_model, create_reporting=False):
 
 
 def main(path_to_serialized_model):
-    print('Loading: ' + str(path_to_serialized_model))
+    print("Loading: " + str(path_to_serialized_model))
     network = fieldnetwork.deserialize_network(path_to_serialized_model)
     store_client = StoreHandler()
     api = API(network, store_client)
