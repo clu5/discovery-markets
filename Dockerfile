@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Install Java, Gradle, Git, Vim, and other dependencies
 RUN apt-get update && apt-get install -y \
+    bash-completion \
     default-jdk \
     default-jre \
     curl \
@@ -18,7 +19,6 @@ RUN apt-get update && apt-get install -y \
     && apt-get update && apt-get install -y elasticsearch \
     && rm -rf /var/lib/apt/lists/*
 
-
 # Change the terminal prompt color
 RUN echo 'PS1="\[\e[36m\]\u@\h:\w\$\[\e[m\] "' >> /root/.bashrc
 
@@ -28,6 +28,10 @@ RUN echo "set editing-mode vi" >> /etc/inputrc
 # Configure Vim history and undofile
 RUN echo "set history=1000" >> /etc/vim/vimrc \
     && echo "set undofile" >> /etc/vim/vimrc
+
+# Setup bash/git completions
+RUN echo "source /usr/share/bash-completion/bash_completion" >> /root/.bashrc \
+    && echo "source /usr/share/bash-completion/completions/git" >> /root/.bashrc \
 
 
 # Configure Elasticsearch
