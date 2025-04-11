@@ -479,16 +479,47 @@ class FieldNetwork:
 def serialize_network_to_csv(network, path):
     nodes = set()
     G = network._get_underlying_repr_graph()
-    with open(path + "edges.csv", "w") as f:
-        for src, tgt in G.edges_iter(data=False):
+    with open(path / "edges.csv", "w") as f:
+        for src, tgt in G.edges(data=False):
             s = str(src) + "," + str(tgt) + "," + "1\n"
             nodes.add(src)
             nodes.add(tgt)
             f.write(s)
-    with open(path + "nodes.csv", "w") as f:
+    with open(path / "nodes.csv", "w") as f:
         for n in nodes:
             s = str(n) + "," + "node\n"
             f.write(s)
+
+
+def serialize_join_paths_to_csv(network, path):
+    """
+    Serialize the network as a CSV file with table and column information for Metam.
+    
+    Format: tbl1,col1,tbl2,col2
+    """
+    G = network._get_underlying_repr_graph()
+    id_to_info = network._get_underlying_repr_id_to_field_info()
+    
+    # Create a CSV with join paths information
+    with open(path / "join_paths.csv", "w") as f:
+        # Write header
+        f.write("tbl1,col1,tbl2,col2\n")
+        
+        # For each edge in the graph
+        for src, tgt in G.edges(data=False):
+            if src in id_to_info and tgt in id_to_info:
+                # Get source and target field information
+                src_info = id_to_info[src]
+                tgt_info = id_to_info[tgt]
+                
+                # Extract table and column names
+                src_db_name, src_source_name, src_field_name, _ = src_info
+                tgt_db_name, tgt_source_name, tgt_field_name, _ = tgt_info
+                
+                # Write the join path
+                f.write(f"{src_source_name},{src_field_name},{tgt_source_name},{tgt_field_name}\n")
+    
+    print(f"Successfully serialized join paths to {path / 'join_paths.csv'}")
 
 
 def _write_gpickle(graph, path):
@@ -520,24 +551,20 @@ def serialize_network(network, path):
     id_to_field_info = network._get_underlying_repr_id_to_field_info()
     table_to_ids = network._get_underlying_repr_table_to_ids()
 
-    # Make sure we create directory if this does not exist
-    path = path + "/"  # force separator
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    _write_gpickle(G, path / "graph.pickle")
+    _write_gpickle(id_to_field_info, path / "id_info.pickle")
+    _write_gpickle(table_to_ids, path / "table_ids.pickle")
 
-    _write_gpickle(G, path + "graph.pickle")
-    _write_gpickle(id_to_field_info, path + "id_info.pickle")
-    _write_gpickle(table_to_ids, path + "table_ids.pickle")
-
-    print("Successfully serialized network to " + path)
+    print("Successfully serialized network to " + str(path))
 
 
 def deserialize_network(path):
-    G = _read_gpickle(path + "graph.pickle")
-    id_to_info = _read_gpickle(path + "id_info.pickle")
-    table_to_ids = _read_gpickle(path + "table_ids.pickle")
+    G = _read_gpickle(path / "graph.pickle")
+    id_to_info = _read_gpickle(path / "id_info.pickle")
+    table_to_ids = _read_gpickle(path / "table_ids.pickle")
     network = FieldNetwork(G, id_to_info, table_to_ids)
 
-    print("Successfully deserialized network from " + path)
+    print("Successfully deserialized network from " + str(path))
 
     return network
 

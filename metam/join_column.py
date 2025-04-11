@@ -1,6 +1,6 @@
 from audioop import cross
 import math, copy
-from numpy import NaN
+from numpy import nan
 import pandas as pd
 import numpy as np
 from scipy.stats import chisquare, chi2_contingency

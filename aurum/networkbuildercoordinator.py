@@ -6,11 +6,14 @@ import aurum.inputoutput as io
 
 import sys
 import time
+from pathlib import Path
 
 
 def main(output_path=None):
     if output_path is None:
         raise ValueError("Output path must be provided")
+    else:
+        output_path = Path(output_path).absolute()
 
     start_all = time.time()
     network = FieldNetwork()
@@ -93,13 +96,16 @@ def main(output_path=None):
     print("Total time: {0}".format(str(end_all - start_all)))
     print("!!7 " + str(end_all - start_all))
 
+    # Save network to pickle and csv files
     fieldnetwork.serialize_network(network, output_path)
+    fieldnetwork.serialize_network_to_csv(network, output_path)
+    fieldnetwork.serialize_join_paths_to_csv(network, output_path)
 
     # Serialize indexes
     # TODO: Is this the correct path???
-    path_schsim = output_path + "/schema_sim_index.pkl"
+    path_schsim = output_path / "schema_sim_index.pkl"
     io.serialize_object(schema_sim_index, path_schsim)
-    path_cntsim = output_path + "/content_sim_index.pkl"
+    path_cntsim = output_path / "content_sim_index.pkl"
     io.serialize_object(content_sim_index, path_cntsim)
 
     print("DONE!")
