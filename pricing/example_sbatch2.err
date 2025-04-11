@@ -1,0 +1,2 @@
+0it [00:00, ?it/s]1it [00:00,  1.16it/s]2it [00:37, 21.86s/it]/var/spool/slurm/d/job4031614/slurm_script: line 14: 1752186 Killed                  python milp_pandora_box.py
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=4031614.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
