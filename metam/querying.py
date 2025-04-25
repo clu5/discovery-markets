@@ -48,7 +48,8 @@ def run_metam(
             cluster_size[assignment[k]] = 1
 
     for k in cluster_size.keys():
-        print(k, centers[k], cluster_size[k])
+        new_col_lst
+        print(k, clusters[k], cluster_size[k])
         # print ("center details",new_col_lst[centers[k]].corr)
 
     stopping_criterion = 1000  # 10000
@@ -122,7 +123,7 @@ def run_metam(
                 ].merged_df[new_col_lst[candidate_id].column]
                 tmp_metric = max(oracle.train_classifier(merged_df, class_attr), metric)
                 print(
-                    "iteration",
+                    f"iteration {iter}",
                     tmp_metric,
                     new_col_lst[candidate_id].join_path.join_path[1].tbl
                     + ";"

@@ -1,43 +1,54 @@
 from distutils.ccompiler import new_compiler
-import src.backend.profile_weights as profile_weights
+import profile_weights as profile_weights
 import os, copy
 from sklearn.feature_selection import mutual_info_classif
 from os import listdir
 from os.path import isfile, join
 import pandas as pd
-from src.backend.dataset import Dataset
+from dataset import Dataset
 import math
 import pandas as pd
-from src.backend.join_path import JoinKey, JoinPath
-from src.backend.join_column import JoinColumn
+from join_path import JoinKey, JoinPath
+from join_column import JoinColumn
 import sys
 import pickle
-import src.backend.join_path as join_path
+import join_path as join_path
 import operator, random
 from sklearn import datasets, linear_model
-import src.backend.group_helper as group_helper
-import src.backend.querying as querying
+import group_helper as group_helper
+import querying as querying
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Oracle implementation, any file containing Oracle class can be used as a task
-from src.backend.classifier_oracle import Oracle
+# from classifier_oracle import Oracle
 
+# Use regression Oracle for non-binary tasks
+from regression_oracle import Oracle
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
 
 random.seed(0)
 
-path = ""  # Add the path to all datasets
-query_data = ""  # Add name of initial dataset
-class_attr = ""  # column name of prediction attribute
+path = f"{ROOT}/../data/test_nyc_csvs"  # Add the path to all datasets
+query_data = "2012_SAT_Results_20241124.csv"  # Add name of initial dataset
+class_attr = "SAT Critical Reading Avg. Score"  # column name of prediction attribute
 query_path = path + "/" + query_data
 
 
 epsilon = 0.05  # Metam parameter
-theta = 0.90  # Required utility
+# theta = 0.90  # Required utility
+theta = 0.95
 
 uninfo = (
     0  # Number of uninformative profiles to be added on top of default set of profiles
 )
 
-filepath = ""  # File containing all join paths
+filepath = (
+    f"{ROOT}/../saved_aurum_graphs/join_paths.csv"  # File containing all join paths
+)
 
 
 options = join_path.get_join_paths_from_file(query_data, filepath)
@@ -53,9 +64,9 @@ base_df = pd.read_csv(query_path)
 
 joinable_lst = options
 oracle = Oracle("random forest")
-orig_metric = oracle.train_classifier(base_df, "class")
+orig_metric = oracle.train_classifier(base_df, class_attr)
 
-print("original metric is ", orig_metric)
+logger.info("original metric is ", orig_metric)
 
 i = 0
 new_col_lst = []
