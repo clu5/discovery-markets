@@ -8,6 +8,11 @@ from difflib import SequenceMatcher
 from sklearn.metrics import adjusted_mutual_info_score
 from sklearn.feature_selection import mutual_info_classif
 import random
+import uuid
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class JoinColumn:
@@ -33,23 +38,29 @@ class JoinColumn:
 
         self.key_r = self.join_path.join_path[1].col
 
-        if column in base_df.columns:
-            new_col_lst = list(self.df.columns)
-            new_col_lst.append(column + "_new")
-            new_col_lst.remove(column)
-            new_name = column + "_new"
-            self.df[new_name] = self.df[column]
-            self.df = self.df[new_col_lst]
-            self.column = new_name
+        uid = "_" + uuid.uuid4().hex
 
         if self.key_r in base_df.columns:
             new_col_lst = list(self.df.columns)
-            new_col_lst.append(self.key_r + "_new")
+            new_col_lst.append(self.key_r + uid)
             new_col_lst.remove(self.key_r)
-            new_name = self.key_r + "_new"
+            new_name = self.key_r + uid
             self.df[new_name] = self.df[self.key_r]
             self.df = self.df[new_col_lst]
+
+            # Conflicts will occur if primary key is same as our column under consideration
+            if self.key_r == column:
+                self.column = new_name
             self.key_r = new_name
+
+        if column in base_df.columns and self.key_r != self.column:
+            new_col_lst = list(self.df.columns)
+            new_col_lst.append(column + uid)
+            new_col_lst.remove(column)
+            new_name = column + uid
+            self.df[new_name] = self.df[column]
+            self.df = self.df[new_col_lst]
+            self.column = new_name
 
         """
         collst=list(base_df.columns)
@@ -64,7 +75,7 @@ class JoinColumn:
             collst.append(self.column)
             self.merged_df = pd.merge(
                 self.base_copy,
-                self.df[[self.key_r, self.column]],
+                self.df[list(set([self.key_r, self.column]))],
                 left_on=self.join_path.join_path[0].col,
                 right_on=self.key_r,
                 how="left",
@@ -72,6 +83,11 @@ class JoinColumn:
             self.merged_df = self.merged_df[collst]
 
         except:
+            logger.warning(
+                f"Error in joining, please check the join path: \
+                           {self.join_path}"
+            )
+
             self.merged_df = copy.deepcopy(self.base_copy)
             self.merged_df[self.column] = 0
             # Add 0 as the profile

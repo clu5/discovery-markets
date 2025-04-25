@@ -137,6 +137,12 @@ class JoinPath:
 
         return 0
 
+    def __str__(self):
+        return f"JoinPath({self.to_str()})"
+
+    def __repr__(self):
+        return f"JoinPath({self.to_str()})"
+
 
 class JoinKey:
     def __init__(self, col_drs, unique_values, total_values, non_empty):
@@ -227,9 +233,9 @@ def cluster_join_paths(joinable_lst, k, epsilon):
                     new_dist < distance[iter]
                 ):  # j.get_distance(joinable_lst[centers[assignment[j]]]):
                     assignment[j] = len(centers) - 1
-                    distance[iter] = (
-                        new_dist  # j.get_distance(joinable_lst[centers[-1]])
-                    )
+                    distance[
+                        iter
+                    ] = new_dist  # j.get_distance(joinable_lst[centers[-1]])
                     if distance[iter] > max_dist:
                         max_dist = distance[iter]
             iter += 1
