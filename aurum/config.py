@@ -14,8 +14,8 @@ simrankfile = "simrankfile.pickle"
 jgraphfile = "jgraphfile.pickle"
 
 # DB connection
-# db_host = 'localhost'
-db_host = "0.0.0.0"
+db_host = 'localhost'
+# db_host = "0.0.0.0"
 # db_port = '9200'
 db_port = 9200
 

@@ -7,7 +7,7 @@ from warnings import warn
 from aurum.ekgstore.neo4j_store import Neo4jExporter
 from fire import Fire
 import IPython
-from aurum.main import init_system
+from aurum.api_main import init_system
 
 run_cmd = subprocess.call
 

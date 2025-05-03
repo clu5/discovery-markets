@@ -3,6 +3,7 @@ import operator
 import networkx as nx
 import pickle
 import os
+import csv
 
 from collections import defaultdict
 from aurum.api.apiutils import DRS
@@ -494,32 +495,54 @@ def serialize_network_to_csv(network, path):
 def serialize_join_paths_to_csv(network, path):
     """
     Serialize the network as a CSV file with table and column information for Metam.
-    
+    Removes duplicate and symmetric join paths.
+
     Format: tbl1,col1,tbl2,col2
     """
     G = network._get_underlying_repr_graph()
     id_to_info = network._get_underlying_repr_id_to_field_info()
-    
-    # Create a CSV with join paths information
-    with open(path / "join_paths.csv", "w") as f:
+
+    unique_paths = set() # Use a set to store unique canonical paths
+
+    # For each edge in the graph
+    for src, tgt in G.edges(data=False):
+        if src in id_to_info and tgt in id_to_info:
+            # Get source and target field information
+            src_info = id_to_info[src]
+            tgt_info = id_to_info[tgt]
+
+            # Extract table and column names
+            # Assuming the structure is (dbName, sourceName, fieldName, dataType)
+            src_source_name = src_info[1]
+            src_field_name = src_info[2]
+            tgt_source_name = tgt_info[1]
+            tgt_field_name = tgt_info[2]
+
+            # Create canonical representation (sort by table, then column)
+            path_tuple1 = (src_source_name, src_field_name)
+            path_tuple2 = (tgt_source_name, tgt_field_name)
+
+            # Ensure consistent order to handle symmetric duplicates (A->B vs B->A)
+            if path_tuple1 < path_tuple2:
+                canonical_path = (src_source_name, src_field_name, tgt_source_name, tgt_field_name)
+            else:
+                canonical_path = (tgt_source_name, tgt_field_name, src_source_name, src_field_name)
+
+            # Add the canonical path tuple to the set
+            unique_paths.add(canonical_path)
+
+    # Create a CSV with unique join paths information
+    output_file = path / "join_paths.csv"
+    with open(output_file, "w", newline='') as f: # Use newline='' for csv writer
+        writer = csv.writer(f)
         # Write header
-        f.write("tbl1,col1,tbl2,col2\n")
-        
-        # For each edge in the graph
-        for src, tgt in G.edges(data=False):
-            if src in id_to_info and tgt in id_to_info:
-                # Get source and target field information
-                src_info = id_to_info[src]
-                tgt_info = id_to_info[tgt]
-                
-                # Extract table and column names
-                src_db_name, src_source_name, src_field_name, _ = src_info
-                tgt_db_name, tgt_source_name, tgt_field_name, _ = tgt_info
-                
-                # Write the join path
-                f.write(f"{src_source_name},{src_field_name},{tgt_source_name},{tgt_field_name}\n")
-    
-    print(f"Successfully serialized join paths to {path / 'join_paths.csv'}")
+        writer.writerow(["tbl1", "col1", "tbl2", "col2"])
+
+        # Write the unique join paths from the set (sorted for deterministic output)
+        for path_tuple in sorted(list(unique_paths)):
+            writer.writerow(path_tuple)
+
+    print(f"Successfully serialized {len(unique_paths)} unique join paths to {output_file}")
 
 
 def _write_gpickle(graph, path):

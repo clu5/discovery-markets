@@ -44,7 +44,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--csv_dir",
-        default="data/test_nyc_csvs",
+        default="data/nyc_csvs",
         help="Path to directory containing CSV files",
     )
     parser.add_argument(
